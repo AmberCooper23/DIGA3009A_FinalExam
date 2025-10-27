@@ -1,0 +1,53 @@
+/* Nav Bar */
+.nav-u-url {
+  color: var(--color1);
+  font-size: 1rem; 
+}
+
+.navLinks ul {
+  /* display: flex; */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 1.25rem; 
+  top: 0.125rem; 
+  text-transform: uppercase;
+}
+
+.navLinks ul li a:hover {
+  color: var(--textColours);
+  font-size: 1.125rem; 
+}
+
+.navLinks ul li a .active {
+  color: var(--color4);
+}
+/* NAV BAR BUTTONS */
+
+.navLinks button {
+  background: var(--headerBackground);
+  color: var(--textColours);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1.125rem; 
+  text-transform: uppercase;
+}
+
+.navLinks button:hover {
+  color: var(--color4);
+  background-color: var(--color2);
+  font-weight: 400;
+}
+
+.navLinks button.active {
+  color: var(--color4);
+  background-color: var(--color2);
+  font-weight: bold;
+}
+
+.siteContainer {
+    flex: 1;
+    margin-left: 250px;
+    padding: 20px;
+}
