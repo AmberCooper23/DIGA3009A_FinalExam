@@ -20,8 +20,8 @@ async function loadMovie() {
         const container = document.getElementById('movieDetails');
         container.innerHTML = `
         <img src = "${IMG_BASE}${movie.poster_path}" alt="${movie.title}" class = "filmList">
-        <h1>${movie.title} (${new Date(movie.release_date).getFullYear()})</h1>
         <div class="movieInfo">
+        <h1>${movie.title} (${new Date(movie.release_date).getFullYear()})</h1>
         <p> <strong> Director: </strong> ${director}<?p>
         <p> <strong> Main Cast: </strong> ${mainCast}</p>
         <p> <strong> Rating: </strong> ${movie.vote_average}/10 </p>
