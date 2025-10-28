@@ -11,7 +11,7 @@ async function fetchFilms(endpoint, listId) {
 
     list.innerHTML = "";
 
-    data.results.slice(0,6).forEach(film=>{
+    data.results.slice(0,6).forEach(movie =>{
         const item = document.createElement('ul');
         const img = document.createElement('img');
         const title = document.createElement('p');
@@ -28,5 +28,5 @@ async function fetchFilms(endpoint, listId) {
   }
 }
 
-fetchFilms('film/popular', '#featuredFilms');
-fetchFilms('film/top_rated', '#friendFilms');
+fetchFilms('movie/popular', '#featuredFilms');
+fetchFilms('movie/top_rated', '#friendFilms');
