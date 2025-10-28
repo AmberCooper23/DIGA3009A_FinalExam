@@ -19,7 +19,7 @@ async function fetchFilms(endpoint, listId) {
         img.src = `${IMG_BASE}${movie.poster_path}`;
         img.alt = movie.title;
 
-        list.append(img, title);
+        li.append(img, title);
         list.appendChild(li);
     });
 
@@ -29,4 +29,4 @@ async function fetchFilms(endpoint, listId) {
 }
 
 fetchFilms('movie/popular', '#featuredFilms');
-fetchFilms('movie/top_rated', '#friendFilms');
+fetchFilms('movie/top_rated', '#friendsFilms');
