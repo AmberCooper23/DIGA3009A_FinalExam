@@ -20,6 +20,10 @@ async function fetchFilms(endpoint, listId) {
         img.alt = movie.title;
         title.textContent = movie.title;
 
+        li.addEventListener('click',()=> {
+            window.location.href = `movieInfo.html?id=${movie.id}`;
+        });
+
         li.append(img, title);
         list.appendChild(li);
     });
@@ -31,3 +35,32 @@ async function fetchFilms(endpoint, listId) {
 
 fetchFilms('movie/popular', '#featuredFilms');
 fetchFilms('movie/top_rated', '#friendsFilms');
+
+async function loadMovie() {
+    const params = new URLSearchParams(window.location.search);
+    const movieId = params.get('id');
+    if (!movieId) return;
+
+    try {
+        const res = await fetch(`${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`);
+        const credits = await creditsRes.json();
+
+        const director = credits.crew.find(person => person.job === 'Director')?.name || 'Unknown';
+        const mainCast = credits.cast.slice(0,5).map(c => c.name).join(',');
+
+        const container = document.getElementById('movieDetails');
+        container.innerHTML = `
+        <h1>${movie.title} (${new DataTransfer(movie.release_date).getFullYear()})</h1>
+        <img src = "${IMG_BASE}${movie.poster_path}" alt="${movie.title}"
+        <p> <strong> Director: </strong> ${director}<?p>
+        <p> <strong> Main Cast: </strong> ${mainCast}</p>
+        <p> <strong> Rating: </strong> ${movie.vote_average}/10 </p>
+        <p> <strong> Overview: </strong> ${movie.overview} </p>
+        `;
+        
+    } catch (err) {
+        console.error('Error loading movie:', err);
+    }
+}
+
+loadMovie();
