@@ -24,7 +24,7 @@ async function loadMovie() {
         <h1>${movie.title} (${new Date(movie.release_date).getFullYear()})</h1>
         <p> <strong> Director: </strong> ${director}<?p>
         <p> <strong> Main Cast: </strong> ${mainCast}</p>
-        <p> <strong> Rating: </strong> ${movie.vote_average}/10 </p>
+        <p> <strong> Rating: </strong> ${movie.vote_average.toFixed(1)}/10 </p>
         <p> <strong> Overview: </strong> ${movie.overview} </p>
        </div>
         `;
