@@ -12,12 +12,13 @@ async function fetchFilms(endpoint, listId) {
     list.innerHTML = "";
 
     data.results.slice(0,6).forEach(movie =>{
-        const item = document.createElement('ul');
+        const li = document.createElement('li');
         const img = document.createElement('img');
         const title = document.createElement('p');
 
-        img.src = `${IMG_BASE}${movie.poster_path}`;
+        img.src = movie.poster_path ? `${IMG_BASE}${movie.poster_path}`:'';
         img.alt = movie.title;
+        title.textContent = movie.title;
 
         li.append(img, title);
         list.appendChild(li);
