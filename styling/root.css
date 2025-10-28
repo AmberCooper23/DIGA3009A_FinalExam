@@ -126,7 +126,7 @@ section a {
   font-weight: 500;
 }
 
-.film-list {
+.filmList {
   display: flex;
   gap: 16px;
   list-style: none;
@@ -135,7 +135,7 @@ section a {
   padding-bottom: 8px;
 }
 
-.film-list li img {
+.filmList li img {
   width: 140px;
   height: 210px;
   border-radius: 10px;
@@ -143,6 +143,6 @@ section a {
   transition: transform 0.2s;
 }
 
-.film-list li img:hover {
+.filmList li img:hover {
   transform: scale(1.05);
 }
