@@ -42,6 +42,9 @@ async function loadMovie() {
     if (!movieId) return;
 
     try {
+        const movieRes = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US`);
+        const movie = await movieRes.json();
+
         const res = await fetch(`${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`);
         const credits = await creditsRes.json();
 
@@ -50,7 +53,7 @@ async function loadMovie() {
 
         const container = document.getElementById('movieDetails');
         container.innerHTML = `
-        <h1>${movie.title} (${new DataTransfer(movie.release_date).getFullYear()})</h1>
+        <h1>${movie.title} (${new Date(movie.release_date).getFullYear()})</h1>
         <img src = "${IMG_BASE}${movie.poster_path}" alt="${movie.title}"
         <p> <strong> Director: </strong> ${director}<?p>
         <p> <strong> Main Cast: </strong> ${mainCast}</p>
