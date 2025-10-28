@@ -4,7 +4,6 @@ const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
 
 async function fetchFilms(endpoint, listId) {
     try{
-
   const response = await fetch(`${BASE_URL}/${endpoint}?api_key=${API_KEY}&language=en-US&page=1`);
     const data = await response.json();
 
@@ -16,7 +15,7 @@ async function fetchFilms(endpoint, listId) {
         const item = document.createElement('li');
         const img = document.createElement('img');
         const title = document.createElement('p');
-
+        
         img.src = `${IMG_BASE}${movie.poster_path}`;
         img.alt = movie.title;
 
