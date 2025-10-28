@@ -146,3 +146,13 @@ section a {
 .filmList li img:hover {
   transform: scale(1.05);
 }
+
+.filmList li p{
+    margin-top: 6px;
+    font-size: 0.9em;
+    font-weight: 500;
+    text-align: left;
+    max-width: 140px;
+    word-wrap: break-word;
+    white-space: normal;
+}
