@@ -26,6 +26,7 @@ async function loadMovie() {
         <p> <strong> Main Cast: </strong> ${mainCast}</p>
         <p> <strong> Rating: </strong> ${movie.vote_average}/10 </p>
         <p> <strong> Overview: </strong> ${movie.overview} </p>
+       </div>
         `;
         
     } catch (err) {
