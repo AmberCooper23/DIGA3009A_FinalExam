@@ -9,7 +9,7 @@ async function fetchFilms(endpoint, listId) {
 
     const list = document.querySelector(listId);
 
-    container.innerHTML = '';
+    list.innerHTML = '';
 
     data.results.slice(0,6).forEach(film=>{
         const item = document.createElement('li');
