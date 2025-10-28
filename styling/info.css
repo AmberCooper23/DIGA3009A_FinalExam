@@ -15,19 +15,19 @@
   flex-shrink: 0;
 }
 
-.movie-info {
+.movieInfo {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.movie-info h1 {
+.movieInfo h1 {
   margin: 0 0 10px;
   font-size: 1.8rem;
   font-weight: 700;
 }
 
-.movie-info p {
+.movieInfo p {
   margin: 4px 0;
   line-height: 1.4;
 }
