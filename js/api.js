@@ -21,7 +21,7 @@ async function fetchFilms(endpoint, listId) {
         title.textContent = movie.title;
 
         li.addEventListener('click',()=> {
-            window.location.href = `../DIGA3009A_FinalExam/pages/movieInfo.html?id=${movie.id}`;
+window.location.href = `${window.location.origin}/DIGA3009A_FinalExam/pages/movieInfo.html?id=${movie.id}`;
         });
 
         li.append(img, title);
