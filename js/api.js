@@ -28,5 +28,5 @@ async function fetchFilms(endpoint, listId) {
   }
 }
 
-fetchFilms('movie/popular', '#featuredFilms');
+fetchFilms('movie.popular', '#featuredFilms');
 fetchFilms('movie/top_rated', '#friendFilms');
