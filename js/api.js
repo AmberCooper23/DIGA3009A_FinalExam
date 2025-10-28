@@ -17,7 +17,7 @@ async function fetchFilms(endpoint, listId) {
         const title = document.createElement('p');
 
         img.src = `${IMG_BASE}${movie.poster_path}`;
-        img.alt = movie.title;
+        img.alt = film.title;
 
         list.append(img, title);
         list.appendChild(li);
