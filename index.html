@@ -6,30 +6,59 @@
     <meta name="author" content="Amber Cooper" />
     <meta name="description" content="A website for you to track your movie or musical watching experiences!"/>
     <title>Home Page</title>
+    <link rel="stylesheet" href="../DIGA3009A_FinalExam/styling/root.css">
 </head>
 <body>
     <header>
-       <h1>
+       <h1 class="logo">
         mediaboxd
        </h1>
+       <form role="search">
+        <input type="text" id="searchInput" placeholder="Search...">
+       </form>
+       <a href="#" class="login"> 
+        Log In
+       </a>
+    </header>
    
-            <nav class="navLinks">
+        <aside class="navLinks">
         <ul class="navBar">
           <li><a class="nav-u-url, activePage" href="../DIGA3009A_FinalExam/index.html"><button class="navButton active"> home </button></a></li>
           <li><a class="nav-u-url" href="../DIGA3009A_FinalExam/pages/addLog.html"><button class="navButton"> log </button></a></li></a></li>
           <li><a class="nav-u-url" href="../DIGA3009A_FinalExam/pages/challenges.html"><button class="navButton"> challenges </button></a></li></a></li>
           <li><a class="nav-u-url" href="../DIGA3009A_FinalExam/pages/diary.html"><button class="navButton"> diary </button></a></li></a></li>
         </ul>  
-          </nav>
+        <button type="button">
+            Log+
+        </button>
+         </aside>
      </header>
 
     <main class="siteContainer">
         <section class="featuredFilms">
-            featured films
+            <header>
+                <h2>
+                    Featured Films
+                </h2>
+                <a href="#">
+                    See More...
+                </a>
+            </header>
+            <ul id="featuredFilms" class="filmList"></ul>
         </section>
-        <section class="newFriends">
-            new from friends
+
+        <section class="friendsFilms">
+            <header>
+                <h2>
+                    New From Friends
+                </h2>
+                <a href="#">
+                    See More...
+                </a>
+            </header>
+            <ul id="friendsFilms" class="filmList"></ul>
         </section>
     </main>
+    <script defer src="../DIGA3009A_FinalExam/js/api.js"></script>
 </body>
 </html>
