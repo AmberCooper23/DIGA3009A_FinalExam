@@ -24,7 +24,7 @@ async function fetchFilms(endpoint, listId) {
     });
 
 } catch (err) {
-    console.error('Error fetching movies:', err);
+    console.error('Error fetching films:', err);
   }
 }
 
