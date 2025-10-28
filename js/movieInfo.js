@@ -11,7 +11,7 @@ async function loadMovie() {
         const movieRes = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US`);
         const movie = await movieRes.json();
 
-        const res = await fetch(`${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`);
+        const creditsRes = await fetch(`${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`);
         const credits = await creditsRes.json();
 
         const director = credits.crew.find(person => person.job === 'Director')?.name || 'Unknown';
@@ -20,7 +20,7 @@ async function loadMovie() {
         const container = document.getElementById('movieDetails');
         container.innerHTML = `
         <h1>${movie.title} (${new Date(movie.release_date).getFullYear()})</h1>
-        <img src = "${IMG_BASE}${movie.poster_path}" alt="${movie.title}"
+        <img src = "${IMG_BASE}${movie.poster_path}" alt="${movie.title}">
         <p> <strong> Director: </strong> ${director}<?p>
         <p> <strong> Main Cast: </strong> ${mainCast}</p>
         <p> <strong> Rating: </strong> ${movie.vote_average}/10 </p>
