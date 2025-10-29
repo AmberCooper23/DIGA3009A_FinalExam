@@ -17,7 +17,34 @@ async function loadMovie() {
         const director = credits.crew.find(person => person.job === 'Director')?.name || 'Unknown';
         const mainCast = credits.cast.slice(0,5).map(c => c.name).join(',');
 
+        const countryCode = 'SA';
+
+        const providersRes = await fetch(`${BASE_URL}/movie/${movieId}/watch/providers?api_key=${API_KEY}&language=en-US`);
+        const providersData = await providersRes.json();
+
+        let providerHTML = '';
+        if(providersData.results[countryCode]) {
+            const countryProviders = providersData.results[countryCode];
+
+        if (countryProviders.flatrate) {
+            providerHTML += '<p> <strong> Streaming: </strong>' + 
+            countryProviders.flatrate.map ( p => p.provider_name).join(',');
+        }
+        if (countryProviders.rent) {
+            providerHTML += '<p> <strong> Rent: </strong>' + 
+            countryProviders.rent.map(p => p.provider_name).join(',') + '</p>';
+        }
+
+        if (countryProviders.buy) {
+            providerHTML += '<p> <strong> Buy: </strong>' + 
+            countryProviders.b87.map (p => provider_name).join(',') + '</p>';
+        }
+
+    }else {
+        providerHTML = '<p> No streaming information available for your region. </p>';
+    }
         const container = document.getElementById('movieDetails');
+
         container.innerHTML = `
         <img src = "${IMG_BASE}${movie.poster_path}" alt="${movie.title}" class = "filmList">
         <div class="movieInfo">
@@ -26,6 +53,7 @@ async function loadMovie() {
         <p> <strong> Main Cast: </strong> ${mainCast}</p>
         <p> <strong> Rating: </strong> ${movie.vote_average.toFixed(1)}/10 </p>
         <p> <strong> Overview: </strong> ${movie.overview} </p>
+        ${providerHTML}
        </div>
         `;
         
