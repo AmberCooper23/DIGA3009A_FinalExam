@@ -4,8 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/styling/movies.css">
 </head>
 <body>
-    
+
+    <header>
+       <h1 class="logo">
+        mediaboxd
+       </h1>
+       <form role="search">
+        <input type="text" id="searchInput" placeholder="Search...">
+       </form>
+       <a href="#" class="login"> 
+        Log In
+       </a>
+    </header>
+
+    <aside class="navLinks">
+        <ul class="navBar">
+          <li><a class="nav-u-url, activePage" href="../DIGA3009A_FinalExam/index.html"><button class="navButton active"> home </button></a></li>
+          <li><a class="nav-u-url" href="../DIGA3009A_FinalExam/pages/movies.html"><button class="navButton"> movies </button></a></li></a></li>
+          <li><a class="nav-u-url" href="../DIGA3009A_FinalExam/pages/musicals.html"><button class="navButton"> musicals </button></a></li></a></li>
+          <li><a class="nav-u-url" href="../DIGA3009A_FinalExam/pages/challenges.html"><button class="navButton"> challenges </button></a></li></a></li>
+          <li><a class="nav-u-url" href="../DIGA3009A_FinalExam/pages/diary.html"><button class="navButton"> diary </button></a></li></a></li>
+        </ul>  
+        <button type="button" href="../DIGA3009A_FinalExam/pages/addLog.html">
+            Log+
+        </button>
+     </aside>
+        
+    <main class="siteContainer">
+        <section class="filters">
+            <select id="yearFilters">
+                <option value="">YEAR</option>
+                <option value="2020s">2020s</option>
+                <option value="2010s">2010s</option>
+                <option value="2000s">2000s</option>
+                <option value="1990s">1990s</option>
+                <option value="1980s">1980s</option>
+            </select>
+            <select id="ratingFilters">
+                <option value="">RATING</option>
+                <option value="desc">Highest to Lowest</option>
+                <option value="asc">Lowest to Highest</option>
+            </select>
+            <select id="popularFilters">
+                <option value="">POPULAR</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+                <option value="year">This Year</option>
+                <option value="decade">This Decade</option>
+            </select>
+            <select id="genreFilters">
+                <option>GENRE</option>
+                <option value="28">Action</option>
+                <option value="16">Animation</option>
+                <option value="18">Drama</option>
+                <option value="27">Horror</option>
+                <option value="878">Sci-Fi</option>
+                <option value="53">Thriller</option>
+                <option value="37">Western</option>
+            </select>
+            <select id="platformFilters">
+                <option>PLATFORM</option>
+            </select>
+        </section>
+
+        <section>
+            <h2>
+                Popular Films This Week
+            </h2>
+        <ul id="popularWeekList" class="filmList"></ul>
+        </section>
+
+        <section>
+            <h2>
+                Growing Up Millenial
+            </h2>
+        <ul id="millenialList" class="filmList"></ul>
+        </section>
+          
+        <section>
+            <h2>
+                Top 10 SA Movies Today
+            </h2>
+        <ul id="saList" class="filmList"></ul>
+        </section>
+
+
+
+    </main>
+    <script defer src="/js/movie.js"></script>
 </body>
 </html>
