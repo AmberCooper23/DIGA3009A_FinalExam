@@ -4,14 +4,17 @@ const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
 
 async function fetchFilms(endpoint, listId) {
     try{
+    const separator = endpoint.includes('?') ? '&' : '?';
   const response = await fetch(`${BASE_URL}/${endpoint}?api_key=${API_KEY}&language=en-US&page=1`);
     const data = await response.json();
 
     const list = document.querySelector(listId);
+    if(!list) return;
     list.innerHTML = "";
 
     if(!data.results || data.results.length === 0) {
-        list.innerHTML = "<p> No results found. </p>"
+        list.innerHTML = "<p> No results found. </p>";
+        return;
     }
 
     data.results.slice(0,10).forEach(movie => {
@@ -97,8 +100,8 @@ async function applyFilters() {
 
     if (popular === 'week') endpoint = 'trending/movie/week';
     if (popular === 'month') endpoint = 'discover/movie?sort_by=popularity.desc';
-    if (popular === 'year') endpoint = '&sort_by=revenue.desc';
-    if (popular === 'decade') endpoint = '&sort_by=vote_count.desc';
+    if (popular === 'year') endpoint = 'discover/movie?sort_by=revenue.desc';
+    if (popular === 'decade') endpoint = 'discover/movie?sort_by=vote_count.desc';
 
     fetchFilms(endpoint, '#filteredResults');
 }
