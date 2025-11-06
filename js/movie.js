@@ -48,14 +48,29 @@ const yearFilter = document.getElementById('yearFilters');
 const ratingFilter = document.getElementById('ratingFilters');
 const popularFilter = document.getElementById('popularFilters');
 const genreFilter = document.getElementById('genreFilters');
+const platformFilter = document.getElementById('platformFilters');
+const resetButton = document.getElementById('resetFilters');
+
+const filteredSection = document.getElementById('filteredSection');
+const filteredList = document.getElementById('filteredList');
 
 [yearFilter, ratingFilter, popularFilter, genreFilter].forEach (select => {
     if(select) select.addEventListener('change', applyFilters);
 });
 
+resetButton.addEventListener('click', ()=> {
+[yearFilter, ratingFilter, popularFilter, genreFilter].forEach (select => select.value ="");
+filteredSection.style.display = "none";
+allSections.forEach(section=> section.style.display ='block');
+});
+
 async function applyFilters() {
+    
     const curatedSections = document.querySelectorAll ('main > section:not(.filters)');
     curatedSections.forEach ( sec => (sec.style.display = 'none'));
+
+    filteredSection.style.display ='block';
+    filteredList.innerHTML='';
 
     let resultsList = document.querySelector('#filteredResults');
     if(!resultsList) {
@@ -103,5 +118,5 @@ async function applyFilters() {
     if (popular === 'year') endpoint = 'discover/movie?sort_by=revenue.desc';
     if (popular === 'decade') endpoint = 'discover/movie?sort_by=vote_count.desc';
 
-    fetchFilms(endpoint, '#filteredResults');
+    fetchFilms(endpoint, '#filteredList');
 }
