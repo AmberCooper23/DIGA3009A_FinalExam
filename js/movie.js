@@ -8,8 +8,11 @@ async function fetchFilms(endpoint, listId) {
     const data = await response.json();
 
     const list = document.querySelector(listId);
-
     list.innerHTML = "";
+
+    if(!data.results || data.results.length === 0) {
+        list.innerHTML = "<p> No results found. </p>"
+    }
 
     data.results.slice(0,10).forEach(movie => {
         const li = document.createElement('li');
@@ -49,11 +52,6 @@ const genreFilter = document.getElementById('genreFilters');
 
 async function applyFilters() {
     const curatedSections = document.querySelectorAll ('main > section:not(.filters)');
-    const year = yearFilter.value;
-    const rating = ratingFilter.value;
-    const popular = popularFilter.value;
-    const genre = genreFilter.value;
-
     curatedSections.forEach ( sec => (sec.style.display = 'none'));
 
     let resultsList = document.querySelector('#filteredResults');
@@ -66,6 +64,11 @@ async function applyFilters() {
 
     resultsList.style.display = 'grid';
 
+    const year = yearFilter.value;
+    const rating = ratingFilter.value;
+    const popular = popularFilter.value;
+    const genre = genreFilter.value;
+        
     let endpoint = 'discover/movie?sort_by=popularity.desc';
     if (rating) endpoint = `discover/movie?sort_by=vote_average.${rating}`;
 
