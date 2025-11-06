@@ -41,7 +41,7 @@ window.location.href = `${window.location.origin}/DIGA3009A_FinalExam/pages/movi
 
 fetchFilms('movie/popular', '#popularList');
 fetchFilms(
-  `discover/movie&sort_by=popularity.desc?primary_release_date.gte=1990-01-01&primary_release_date.lte=2005-12-31`, '#millennialList');
+  `discover/movie?sort_by=popularity.desc&primary_release_date.gte=1990-01-01&primary_release_date.lte=2005-12-31`, '#millennialList');
 fetchFilms('discover/movie?sort_by=popularity.desc&with_origin_country=ZA', '#saMovies');
 
 const yearFilter = document.getElementById('yearFilters');
