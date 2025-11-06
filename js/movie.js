@@ -4,7 +4,7 @@ const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
 
 async function fetchFilms(endpoint, listId) {
     try{
-    const separator = endpoint.includes('?') ? '&' : '?';
+    const separator = endpoint.includes('?') || endpoint.includes('&') ? '&' : '?';
   const response = await fetch(`${BASE_URL}/${endpoint}${separator}api_key=${API_KEY}&language=en-US&page=1`);
     const data = await response.json();
 
@@ -41,8 +41,8 @@ window.location.href = `${window.location.origin}/DIGA3009A_FinalExam/pages/movi
 
 fetchFilms('movie/popular', '#popularList');
 fetchFilms(
-  `discover/movie?sort_by=popularity.desc&primary_release_date.gte=1990-01-01&primary_release_date.lte=2005-12-31`, '#millennialList');
-fetchFilms('discover/movie?sort_by=popularity.desc&with_origin_country=ZA', '#saMovies');
+  `discover/movie&sort_by=popularity.desc&primary_release_date.gte=1990-01-01&primary_release_date.lte=2005-12-31`, '#millennialList');
+fetchFilms('discover/movie&sort_by=popularity.desc&with_origin_country=ZA', '#saMovies');
 
 const yearFilter = document.getElementById('yearFilters');
 const ratingFilter = document.getElementById('ratingFilters');
@@ -50,7 +50,7 @@ const popularFilter = document.getElementById('popularFilters');
 const genreFilter = document.getElementById('genreFilters');
 
 [yearFilter, ratingFilter, popularFilter, genreFilter].forEach (select => {
-    select.addEventListener('change', applyFilters);
+    if(select) select.addEventListener('change', applyFilters);
 });
 
 async function applyFilters() {
