@@ -68,9 +68,13 @@ async function applyFilters() {
     const rating = ratingFilter.value;
     const popular = popularFilter.value;
     const genre = genreFilter.value;
-        
+
     let endpoint = 'discover/movie?sort_by=popularity.desc';
-    if (rating) endpoint = `discover/movie?sort_by=vote_average.${rating}`;
+
+    if (popular === 'week') endpoint = 'trending/movie/week';
+    else if (popular === 'month') endpoint = 'discover/movie?sort_by=popularity.desc';
+    else if (popular === 'year') endpoint = 'discover/movie?sort_by=revenue.desc';
+    else if (popular === 'decade') endpoint = 'discover/movie?sort_by=vote_count.desc';
 
     const decadeRanges = {
         '2020s': ['2020-01-01', '2029-12-31'],
@@ -83,6 +87,10 @@ async function applyFilters() {
     if (decadeRanges[year]) {
         const [gte, lte] = decadeRanges[year];
         endpoint += `&primary_release_date.gte=${gte}&primary_release_date.lte=${lte}`; // gte = greater than or equal, lte = less than or equal
+    }
+
+    if (rating === 'desc' || rating === 'asc') {
+        endpoint = `discover/movie?sort_by=vote_average.${rating}`;
     }
 
     if (genre) endpoint += `&with_genres=${genre}`;
