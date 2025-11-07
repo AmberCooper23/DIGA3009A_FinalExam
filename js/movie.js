@@ -149,5 +149,53 @@ async function applyFilters() {
   await fetchFilms(endpoint, '#filteredList', allPages);
 }
 
+// Animate the header on page load
+gsap.from("header", {
+  y: -80,
+  opacity: 0,
+  duration: 1,
+  ease: "power3.out"
+});
+
+// Fade in the filters section
+gsap.from(".filters", {
+  y: 30,
+  opacity: 0,
+  duration: 1,
+  delay: 0.5,
+  ease: "power2.out"
+});
+
+// Animate each film section heading
+gsap.utils.toArray("main section h2").forEach((heading, i) => {
+  gsap.from(heading, {
+    scrollTrigger: {
+      trigger: heading,
+      start: "top 80%", // animation starts when heading enters viewport
+      toggleActions: "play none none reverse"
+    },
+    y: 40,
+    opacity: 0,
+    duration: 0.8,
+    ease: "power2.out",
+    delay: i * 0.1
+  });
+});
+
+// Animate film lists as they scroll into view
+gsap.utils.toArray(".filmList").forEach((list) => {
+  gsap.from(list, {
+    scrollTrigger: {
+      trigger: list,
+      start: "top 85%",
+      toggleActions: "play none none reverse"
+    },
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    stagger: 0.1,
+    ease: "power2.out"
+  });
+});
 
 
