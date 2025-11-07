@@ -54,31 +54,46 @@ const resetButton = document.getElementById('resetFilters');
 
 const filteredSection = document.getElementById('filterSection');
 const filteredList = document.getElementById('filteredList');
+const filteredHeader = filteredSection.querySelector('h2');
 const allSections = document.querySelectorAll('main > section:not(.filters)');
 
+// hide filtered section by default
+filteredSection.style.display = "none";
+
+// listen for filter changes
 [yearFilter, ratingFilter, popularFilter, genreFilter].forEach(select => {
   if (select) select.addEventListener('change', applyFilters);
 });
 
+// reset filters
 resetButton.addEventListener('click', () => {
   [yearFilter, ratingFilter, popularFilter, genreFilter].forEach(select => (select.value = ""));
   filteredSection.style.display = "none";
   allSections.forEach(section => (section.style.display = 'block'));
+  filteredHeader.textContent = "Filtered Results";
 });
 
+// apply filters
 async function applyFilters() {
-  allSections.forEach(sec => (sec.style.display = 'none'));
-  filteredSection.style.display = 'block';
-  filteredList.innerHTML = '';
-
   const year = yearFilter.value;
   const rating = ratingFilter.value;
   const popular = popularFilter.value;
   const genre = genreFilter.value;
 
+  // if no filters are selected, show original sections
+  if (!year && !rating && !popular && !genre) {
+    filteredSection.style.display = "none";
+    allSections.forEach(sec => (sec.style.display = 'block'));
+    return;
+  }
+
+  // hide other sections and show filtered results
+  allSections.forEach(sec => (sec.style.display = 'none'));
+  filteredSection.style.display = 'block';
+  filteredList.innerHTML = '';
+
   let endpoint = 'discover/movie?sort_by=popularity.desc';
 
-  // Decade filter
   const decadeRanges = {
     '2020s': ['2020-01-01', '2029-12-31'],
     '2010s': ['2010-01-01', '2019-12-31'],
@@ -86,23 +101,37 @@ async function applyFilters() {
     '1990s': ['1990-01-01', '1999-12-31'],
     '1980s': ['1980-01-01', '1989-12-31'],
   };
+
   if (decadeRanges[year]) {
     const [gte, lte] = decadeRanges[year];
     endpoint += `&primary_release_date.gte=${gte}&primary_release_date.lte=${lte}`;
   }
 
-  // Rating sort
   if (rating === 'desc' || rating === 'asc') {
     endpoint = `discover/movie?sort_by=vote_average.${rating}`;
   }
 
-  // Genre
   if (genre) endpoint += `&with_genres=${genre}`;
 
-  // Popular filters (these override because they use different endpoints)
   if (popular === 'week') endpoint = 'trending/movie/week';
   else if (popular === 'year') endpoint = 'discover/movie?sort_by=revenue.desc';
   else if (popular === 'decade') endpoint = 'discover/movie?sort_by=vote_count.desc';
+
+  // build dynamic header text
+  let headerText = "Filtered Results";
+  if (genre) {
+    const genreText = genreFilter.options[genreFilter.selectedIndex].text;
+    headerText = `${genreText} Movies`;
+  }
+  if (year) headerText += ` (${year})`;
+  if (rating === 'desc') headerText += " – Top Rated";
+  if (rating === 'asc') headerText += " – Lowest Rated";
+  if (popular === 'week') headerText = "Trending This Week";
+  if (popular === 'month') headerText = "Trending This Month";
+  if (popular === 'year') headerText = "Top Movies of the Year";
+  if (popular === 'decade') headerText = "Most Popular This Decade";
+
+  filteredHeader.textContent = headerText;
 
   await fetchFilms(endpoint, '#filteredList');
 }
