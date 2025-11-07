@@ -5,7 +5,7 @@ const challenges = [
   {
     id: 1,
     title: "Oscar Winners 2024",
-    movieIds: [693134, 872585, 940721], 
+    movieIds: [693134, 872585, 940721],
     progress: 65,
   },
   {
@@ -22,23 +22,35 @@ const challenges = [
   },
 ];
 
+const friendChallenges = [
+  {
+    id: 4,
+    title: "Wong Kar-Wai",
+    movieIds: [11104, 11105, 11106], // example IDs
+    progress: 20,
+  },
+];
+
 async function fetchMoviePoster(movieId) {
   const res = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`);
   const data = await res.json();
-  return `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+  return data.poster_path
+    ? `https://image.tmdb.org/t/p/w500${data.poster_path}`
+    : "../assets/placeholder.png"; // fallback if no poster
 }
 
-async function renderChallenges() {
-  const featuredContainer = document.getElementById("featuredChallenges");
+async function renderChallengeList(containerId, challengeList) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = ""; // clear before rendering
 
-  for (const ch of challenges) {
-    // Fetch the first movie’s poster as the challenge thumbnail
+  for (const ch of challengeList) {
     const poster = await fetchMoviePoster(ch.movieIds[0]);
 
     const li = document.createElement("li");
+    li.classList.add("challengeCard");
     li.innerHTML = `
       <img src="${poster}" alt="${ch.title}">
-      <p>${ch.title}</p>
+      <p class="challengeTitle">${ch.title}</p>
       <div class="progressBar">
         <div class="progressFill" style="width: ${ch.progress}%"></div>
       </div>
@@ -48,8 +60,13 @@ async function renderChallenges() {
       location.href = `challenges.html?id=${ch.id}`;
     });
 
-    featuredContainer.appendChild(li);
+    container.appendChild(li);
   }
+}
+
+async function renderChallenges() {
+  await renderChallengeList("featuredChallenges", challenges);
+  await renderChallengeList("friendChallenges", friendChallenges);
 }
 
 renderChallenges();
