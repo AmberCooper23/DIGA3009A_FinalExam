@@ -5,7 +5,7 @@ const challenges = [
   {
     id: 1,
     title: "Oscar Winners 2024",
-    movieIds: [693134, 872585, 940721], // TMDb IDs
+    movieIds: [693134, 872585, 940721], 
     progress: 65,
   },
   {
@@ -39,13 +39,13 @@ async function renderChallenges() {
     li.innerHTML = `
       <img src="${poster}" alt="${ch.title}">
       <p>${ch.title}</p>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: ${ch.progress}%"></div>
+      <div class="progressBar">
+        <div class="progressFill" style="width: ${ch.progress}%"></div>
       </div>
       <small>${ch.progress}% complete</small>
     `;
     li.addEventListener("click", () => {
-      location.href = `challenge-info.html?id=${ch.id}`;
+      location.href = `challenges.html?id=${ch.id}`;
     });
 
     featuredContainer.appendChild(li);
