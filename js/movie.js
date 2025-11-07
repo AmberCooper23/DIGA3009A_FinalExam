@@ -62,7 +62,6 @@ filteredSection.style.display = "none";
   if (select) select.addEventListener('change', applyFilters);
 });
 
-// reset filters
 resetButton.addEventListener('click', () => {
   [yearFilter, ratingFilter, popularFilter, genreFilter].forEach(select => (select.value = ""));
   filteredSection.style.display = "none";
@@ -70,7 +69,6 @@ resetButton.addEventListener('click', () => {
   filteredHeader.textContent = "Filtered Results";
 });
 
-// apply filters
 async function applyFilters() {
   const year = yearFilter.value;
   const rating = ratingFilter.value;
@@ -102,15 +100,19 @@ async function applyFilters() {
     endpoint += `&primary_release_date.gte=${gte}&primary_release_date.lte=${lte}`;
   }
 
-  if (rating === 'desc' || rating === 'asc') {
-    endpoint = `discover/movie?sort_by=vote_average.${rating}`;
+  // Balanced top-rated filter (avoids random obscure stuff)
+  if (rating === 'desc') {
+    endpoint = `discover/movie?sort_by=vote_average.desc&vote_count.gte=2000&vote_average.gte=7.5`;
+  } else if (rating === 'asc') {
+    endpoint = `discover/movie?sort_by=vote_average.asc&vote_count.gte=2000`;
   }
 
   if (genre) endpoint += `&with_genres=${genre}`;
 
   if (popular === 'week') endpoint = 'trending/movie/week';
-  else if (popular === 'year') endpoint = 'discover/movie?sort_by=revenue.desc';
-  else if (popular === 'decade') endpoint = 'discover/movie?sort_by=vote_count.desc';
+  else if (popular === 'month') endpoint = 'discover/movie?sort_by=popularity.desc&vote_count.gte=1000';
+  else if (popular === 'year') endpoint = 'discover/movie?sort_by=revenue.desc&vote_count.gte=1000';
+  else if (popular === 'decade') endpoint = 'discover/movie?sort_by=vote_count.desc&vote_count.gte=1000';
 
   let headerText = "Filtered Results";
   if (genre) {
@@ -118,8 +120,8 @@ async function applyFilters() {
     headerText = `${genreText} Movies`;
   }
   if (year) headerText += ` (${year})`;
-  if (rating === 'desc') headerText += " – Top Rated";
-  if (rating === 'asc') headerText += " – Lowest Rated";
+  if (rating === 'desc') headerText += " – Top Rated (Popular Picks)";
+  if (rating === 'asc') headerText += " – Lowest Rated (≥2000 votes)";
   if (popular === 'week') headerText = "Trending This Week";
   if (popular === 'month') headerText = "Trending This Month";
   if (popular === 'year') headerText = "Top Movies of the Year";
