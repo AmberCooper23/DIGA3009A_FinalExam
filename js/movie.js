@@ -48,7 +48,7 @@ const yearFilter = document.getElementById('yearFilters');
 const ratingFilter = document.getElementById('ratingFilters');
 const popularFilter = document.getElementById('popularFilters');
 const genreFilter = document.getElementById('genreFilters');
-const platformFilter = document.getElementById('platformFilters');
+const platformFilter = document.getElementById('platformFilter');
 const resetButton = document.getElementById('resetFilters');
 
 const filteredSection = document.getElementById('filterSection');
@@ -57,6 +57,8 @@ const filteredList = document.getElementById('filteredList');
 [yearFilter, ratingFilter, popularFilter, genreFilter].forEach (select => {
     if(select) select.addEventListener('change', applyFilters);
 });
+
+const allSections = document.querySelectorAll('main> section:not(.filter)');
 
 resetButton.addEventListener('click', ()=> {
 [yearFilter, ratingFilter, popularFilter, genreFilter].forEach (select => select.value ="");
