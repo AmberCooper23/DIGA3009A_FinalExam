@@ -272,20 +272,19 @@ transform: translateY(-2px);
 }
 
 .posterCollage {
-  position: relative;
-  width: 220px;
-  height: 320px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 6px;
+  width: 220px;   /* adjust to taste */
   margin: 0 auto 0.5rem;
 }
 
 .posterCollage img {
-  position: absolute;
-  width: 110px;
-  height: 165px;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 6px 10px rgba(0,0,0,0.4);
-  transition: transform 0.2s;
 }
 
 .poster-0 { top: 0; left: 0; transform: rotate(-4deg); z-index: 4; }

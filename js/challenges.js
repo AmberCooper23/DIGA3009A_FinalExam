@@ -73,7 +73,8 @@ async function renderChallengeList(containerId, challengeList) {
     const li = document.createElement("li");
     li.classList.add("challengeCard");
 
-    const collageHTML = posters.map((src,i) => `<img src="${src} class="poster poster-${i} alt=${ch.title}">`
+    const collageHTML = posters.map((src,i) =>
+         `<img src="${src}" class="poster poster-${i}" alt="${ch.title}">`
     ).join("");
 
     li.innerHTML = `
