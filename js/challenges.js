@@ -28,13 +28,6 @@ const challenges = [
   },
 ];
 
-const friendChallenges = [
-  {
-    id: 3,
-    title: "Wong Kar-Wai",
-    movieIds: [11104, 11105, 11106], // example IDs
-  },
-];
 
 //  Progress Calculation 
 function calculateProgress(challenge, logs) {
@@ -101,7 +94,6 @@ async function renderChallengeList(containerId, challengeList) {
 
 async function renderChallenges() {
   await renderChallengeList("featuredChallenges", challenges);
-  await renderChallengeList("friendChallenges", friendChallenges);
 }
 
 renderChallenges();
