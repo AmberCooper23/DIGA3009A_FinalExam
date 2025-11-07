@@ -43,6 +43,20 @@ function calculateProgress(challenge, logs) {
 }
 
 //  Rendering 
+async function fetchMoviePoster(movieId, size = "w200") {
+  try {
+    const res = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`);
+    const data = await res.json();
+    if (data && data.poster_path) {
+      return `https://image.tmdb.org/t/p/${size}${data.poster_path}`;
+    }
+    return "../assets/placeholder.png"; // fallback if no poster
+  } catch (err) {
+    console.error("Poster fetch failed for", movieId, err);
+    return "../assets/placeholder.png";
+  }
+}
+
 async function fetchMoviePosters(movieIds, count = 4) {
   const posters = [];
   for (let i = 0; i < Math.min(count, movieIds.length); i++) {
