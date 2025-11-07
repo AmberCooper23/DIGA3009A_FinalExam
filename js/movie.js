@@ -52,7 +52,7 @@ const popularFilter = document.getElementById('popularFilter');
 const genreFilter = document.getElementById('genreFilters');
 const resetButton = document.getElementById('resetFilters');
 
-const filteredSection = document.getElementById('filteredSection');
+const filteredSection = document.getElementById('filterSection');
 const filteredList = document.getElementById('filteredList');
 const allSections = document.querySelectorAll('main > section:not(.filters)');
 
