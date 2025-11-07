@@ -2,7 +2,6 @@ const API_KEY = '0cefd7764121a70764185523e70202ae';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
 
-// Generic fetch + render
 async function fetchFilms(endpoint, listId) {
   try {
     const url = `${BASE_URL}/${endpoint}${endpoint.includes('?') ? '&' : '?'}api_key=${API_KEY}&language=en-US&page=1`;
@@ -57,10 +56,8 @@ const filteredList = document.getElementById('filteredList');
 const filteredHeader = filteredSection.querySelector('h2');
 const allSections = document.querySelectorAll('main > section:not(.filters)');
 
-// hide filtered section by default
 filteredSection.style.display = "none";
 
-// listen for filter changes
 [yearFilter, ratingFilter, popularFilter, genreFilter].forEach(select => {
   if (select) select.addEventListener('change', applyFilters);
 });
@@ -80,14 +77,12 @@ async function applyFilters() {
   const popular = popularFilter.value;
   const genre = genreFilter.value;
 
-  // if no filters are selected, show original sections
   if (!year && !rating && !popular && !genre) {
     filteredSection.style.display = "none";
     allSections.forEach(sec => (sec.style.display = 'block'));
     return;
   }
 
-  // hide other sections and show filtered results
   allSections.forEach(sec => (sec.style.display = 'none'));
   filteredSection.style.display = 'block';
   filteredList.innerHTML = '';
@@ -117,7 +112,6 @@ async function applyFilters() {
   else if (popular === 'year') endpoint = 'discover/movie?sort_by=revenue.desc';
   else if (popular === 'decade') endpoint = 'discover/movie?sort_by=vote_count.desc';
 
-  // build dynamic header text
   let headerText = "Filtered Results";
   if (genre) {
     const genreText = genreFilter.options[genreFilter.selectedIndex].text;
