@@ -2,25 +2,6 @@ const API_KEY = '0cefd7764121a70764185523e70202ae';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
 
-// Register GSAP ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
-
-// ✨ Animate movie cards helper
-function animateMovieCards(listSelector) {
-  gsap.from(`${listSelector} li`, {
-    scrollTrigger: {
-      trigger: listSelector,
-      start: "top 90%",
-      toggleActions: "play none none none",
-    },
-    opacity: 0,
-    y: 40,
-    duration: 0.6,
-    stagger: 0.1,
-    ease: "power2.out"
-  });
-}
-
 // ✨ Reworked fetchFilms with all-pages + loading spinner
 async function fetchFilms(endpoint, listId, allPages = false) {
   try {
@@ -67,9 +48,6 @@ async function fetchFilms(endpoint, listId, allPages = false) {
       li.append(img, title);
       list.appendChild(li);
     });
-
-    // Animate cards after appending
-    animateMovieCards(listId);
 
   } catch (err) {
     console.error('Error fetching films:', err);
@@ -137,6 +115,7 @@ async function applyFilters() {
     endpoint += `&primary_release_date.gte=${gte}&primary_release_date.lte=${lte}`;
   }
 
+  // Balanced top-rated filter (avoids obscure stuff)
   if (rating === 'desc') {
     endpoint = `discover/movie?sort_by=vote_average.desc&vote_count.gte=2000&vote_average.gte=7.5`;
   } else if (rating === 'asc') {
@@ -144,6 +123,7 @@ async function applyFilters() {
   }
 
   if (genre) endpoint += `&with_genres=${genre}`;
+
   if (popular === 'week') endpoint = 'trending/movie/week';
   else if (popular === 'month') endpoint = 'discover/movie?sort_by=popularity.desc&vote_count.gte=1000';
   else if (popular === 'year') endpoint = 'discover/movie?sort_by=revenue.desc&vote_count.gte=1000';
@@ -164,7 +144,10 @@ async function applyFilters() {
 
   filteredHeader.textContent = headerText;
 
+  // Load multiple pages if rating filter is active
   const allPages = rating !== "";
   await fetchFilms(endpoint, '#filteredList', allPages);
-  animateMovieCards('#filteredList');
 }
+
+
+
