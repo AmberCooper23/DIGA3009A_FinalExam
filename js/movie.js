@@ -2,10 +2,11 @@ const API_KEY = '0cefd7764121a70764185523e70202ae';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
 
+// Generic fetch + render
 async function fetchFilms(endpoint, listId) {
   try {
-    const separator = endpoint.includes('?') || endpoint.includes('&') ? '&' : '?';
-    const response = await fetch(`${BASE_URL}/${endpoint}${separator}api_key=${API_KEY}&language=en-US&page=1`);
+    const url = `${BASE_URL}/${endpoint}${endpoint.includes('?') ? '&' : '?'}api_key=${API_KEY}&language=en-US&page=1`;
+    const response = await fetch(url);
     const data = await response.json();
 
     const list = document.querySelector(listId);
@@ -17,7 +18,7 @@ async function fetchFilms(endpoint, listId) {
       return;
     }
 
-    data.results.slice(0, 10).forEach(movie => {
+    data.results.slice(0, 12).forEach(movie => {
       const li = document.createElement('li');
       const img = document.createElement('img');
       const title = document.createElement('p');
@@ -39,15 +40,16 @@ async function fetchFilms(endpoint, listId) {
   }
 }
 
+// Initial curated lists
 fetchFilms('movie/popular', '#popularList');
-fetchFilms(`discover/movie?sort_by=popularity.desc&primary_release_date.gte=1990-01-01&primary_release_date.lte=2005-12-31`, '#millennialList');
+fetchFilms('discover/movie?sort_by=popularity.desc&primary_release_date.gte=1990-01-01&primary_release_date.lte=2005-12-31', '#millennialList');
 fetchFilms('discover/movie?sort_by=popularity.desc&with_origin_country=ZA', '#saList');
 
+// Filter logic
 const yearFilter = document.getElementById('yearFilters');
 const ratingFilter = document.getElementById('ratingFilters');
 const popularFilter = document.getElementById('popularFilter');
 const genreFilter = document.getElementById('genreFilters');
-const platformFilter = document.getElementById('platformFilters');
 const resetButton = document.getElementById('resetFilters');
 
 const filteredSection = document.getElementById('filteredSection');
@@ -59,15 +61,13 @@ const allSections = document.querySelectorAll('main > section:not(.filters)');
 });
 
 resetButton.addEventListener('click', () => {
-  [yearFilter, ratingFilter, popularFilter, genreFilter].forEach(select => select.value = "");
+  [yearFilter, ratingFilter, popularFilter, genreFilter].forEach(select => (select.value = ""));
   filteredSection.style.display = "none";
-  allSections.forEach(section => section.style.display = 'block');
+  allSections.forEach(section => (section.style.display = 'block'));
 });
 
 async function applyFilters() {
-  const curatedSections = document.querySelectorAll('main > section:not(.filters)');
-  curatedSections.forEach(sec => (sec.style.display = 'none'));
-
+  allSections.forEach(sec => (sec.style.display = 'none'));
   filteredSection.style.display = 'block';
   filteredList.innerHTML = '';
 
@@ -78,6 +78,7 @@ async function applyFilters() {
 
   let endpoint = 'discover/movie?sort_by=popularity.desc';
 
+  // Decade filter
   const decadeRanges = {
     '2020s': ['2020-01-01', '2029-12-31'],
     '2010s': ['2010-01-01', '2019-12-31'],
@@ -85,21 +86,23 @@ async function applyFilters() {
     '1990s': ['1990-01-01', '1999-12-31'],
     '1980s': ['1980-01-01', '1989-12-31'],
   };
-
   if (decadeRanges[year]) {
     const [gte, lte] = decadeRanges[year];
     endpoint += `&primary_release_date.gte=${gte}&primary_release_date.lte=${lte}`;
   }
 
+  // Rating sort
   if (rating === 'desc' || rating === 'asc') {
     endpoint = `discover/movie?sort_by=vote_average.${rating}`;
   }
 
+  // Genre
   if (genre) endpoint += `&with_genres=${genre}`;
 
+  // Popular filters (these override because they use different endpoints)
   if (popular === 'week') endpoint = 'trending/movie/week';
   else if (popular === 'year') endpoint = 'discover/movie?sort_by=revenue.desc';
   else if (popular === 'decade') endpoint = 'discover/movie?sort_by=vote_count.desc';
 
-  fetchFilms(endpoint, '#filteredList');
+  await fetchFilms(endpoint, '#filteredList');
 }
