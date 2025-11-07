@@ -230,16 +230,20 @@ section h2 {
 }
 
 .challengeList {
-  display: flex;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
   list-style: none;
-  overflow-x: auto;
-  padding-bottom: 8px;
+  padding: 0;
 }
 
 .challengeCard {
-  flex: 0 0 auto;
-  width: 140px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .challengeCard img {
