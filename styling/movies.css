@@ -166,8 +166,7 @@ section h2 {
   cursor: pointer;
 }
 
-.filmList li img, 
-#filteredList li img {
+.filmList li img {
   width: 140px;
   height: 210px;
   border-radius: 10px;
@@ -187,23 +186,6 @@ section h2 {
   text-align: left;
   max-width: 140px;
   white-space: normal;
-}
-
-.filmList li, 
-#filteredList li {
-    flex: 0 0 auto; 
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.05); 
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.filmList li:hover, 
-#filteredList li:hover {
-    transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
 }
 
 
