@@ -2,22 +2,37 @@ const API_KEY = '0cefd7764121a70764185523e70202ae';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
 
-async function fetchFilms(endpoint, listId) {
+// ✨ Reworked fetchFilms with all-pages + loading spinner
+async function fetchFilms(endpoint, listId, allPages = false) {
   try {
-    const url = `${BASE_URL}/${endpoint}${endpoint.includes('?') ? '&' : '?'}api_key=${API_KEY}&language=en-US&page=1`;
-    const response = await fetch(url);
-    const data = await response.json();
-
     const list = document.querySelector(listId);
     if (!list) return;
-    list.innerHTML = "";
 
-    if (!data.results || data.results.length === 0) {
+    // add loading spinner
+    list.innerHTML = "<p style='text-align:center; padding:20px;'>Loading...</p>";
+
+    let allResults = [];
+    const totalPages = allPages ? 10 : 1;
+
+    for (let page = 1; page <= totalPages; page++) {
+      const url = `${BASE_URL}/${endpoint}${endpoint.includes('?') ? '&' : '?'}api_key=${API_KEY}&language=en-US&page=${page}`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.results && data.results.length > 0) {
+        allResults = allResults.concat(data.results);
+      } else {
+        break; // stop when there’s no more results
+      }
+    }
+
+    if (allResults.length === 0) {
       list.innerHTML = "<p>No results found.</p>";
       return;
     }
 
-    data.results.slice(0, 12).forEach(movie => {
+    list.innerHTML = "";
+    allResults.forEach(movie => {
       const li = document.createElement('li');
       const img = document.createElement('img');
       const title = document.createElement('p');
@@ -100,7 +115,7 @@ async function applyFilters() {
     endpoint += `&primary_release_date.gte=${gte}&primary_release_date.lte=${lte}`;
   }
 
-  // Balanced top-rated filter (avoids random obscure stuff)
+  // Balanced top-rated filter (avoids obscure stuff)
   if (rating === 'desc') {
     endpoint = `discover/movie?sort_by=vote_average.desc&vote_count.gte=2000&vote_average.gte=7.5`;
   } else if (rating === 'asc') {
@@ -129,5 +144,7 @@ async function applyFilters() {
 
   filteredHeader.textContent = headerText;
 
-  await fetchFilms(endpoint, '#filteredList');
+  // Load multiple pages if rating filter is active
+  const allPages = rating !== "";
+  await fetchFilms(endpoint, '#filteredList', allPages);
 }
