@@ -67,7 +67,7 @@ async function renderChallengeList(containerId, challengeList) {
   const logs = getUserLogs();
 
   for (const ch of challengeList) {
-    const poster = await fetchMoviePosters(ch.movieIds, 4);
+    const posters = await fetchMoviePosters(ch.movieIds, 4);
     const progress = calculateProgress(ch, logs);
 
     const li = document.createElement("li");
