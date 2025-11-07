@@ -166,7 +166,8 @@ section h2 {
   cursor: pointer;
 }
 
-.filmList li img {
+.filmList li img,
+#filteredList li img {
   width: 140px;
   height: 210px;
   border-radius: 10px;
@@ -175,8 +176,10 @@ section h2 {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.filmList li img:hover {
+.filmList li img:hover,
+#filteredList li img:hover {
   transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
 }
 
 .filmList li p {
