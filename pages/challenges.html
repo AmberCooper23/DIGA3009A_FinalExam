@@ -4,8 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../styling/challenges.css">
 </head>
 <body>
+       <header>
+       <h1 class="logo">
+        mediaboxd
+       </h1>
+       <form role="search">
+        <input type="text" id="searchInput" placeholder="Search...">
+       </form>
+       <a href="#" class="login"> 
+        Log In
+       </a>
+    </header>
+
+    <aside class="navLinks">
+        <ul class="navBar">
+          <li><a class="nav-u-url, activePage" href="../index.html"><button class="navButton active"> home </button></a></li>
+          <li><a class="nav-u-url" href="../pages/movies.html"><button class="navButton"> movies </button></a></li></a></li>
+          <li><a class="nav-u-url" href="../pages/musicals.html"><button class="navButton"> musicals </button></a></li></a></li>
+          <li><a class="nav-u-url" href="../pages/challenges.html"><button class="navButton"> challenges </button></a></li></a></li>
+          <li><a class="nav-u-url" href="../pages/diary.html"><button class="navButton"> diary </button></a></li></a></li>
+        </ul>  
+        <button type="button" href="../pages/addLog.html">
+            Log+
+        </button>
+     </aside>
+
+    <main class="siteContainer">
+        <section class="featuredChallenges">
+            <h2>
+                Featured Challenges
+            </h2>
+            <ul class="challengeList">
+                <li class="challengeCard" id="challengeList"></li>
+            </ul>
+        </section>
+    </main>
     
 </body>
 </html>
