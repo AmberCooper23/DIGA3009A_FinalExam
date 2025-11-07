@@ -58,7 +58,7 @@ const filteredList = document.getElementById('filteredList');
     if(select) select.addEventListener('change', applyFilters);
 });
 
-const allSections = document.querySelectorAll('main> section:not(.filter)');
+const allSections = document.querySelectorAll('main> section:not(.filters)');
 
 resetButton.addEventListener('click', ()=> {
 [yearFilter, ratingFilter, popularFilter, genreFilter].forEach (select => select.value ="");
