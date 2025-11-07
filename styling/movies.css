@@ -128,10 +128,10 @@ main {
   border: 1px solid rgba(0,0,0,0.1);
   border-radius: 6px;
   padding: 4px 10px;
-  margin-bottom: 20px;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s;
+  margin-left: auto;
 }
 
 .resetButton:hover {
