@@ -36,25 +36,29 @@ const friendChallenges = [
   },
 ];
 
-// --- Progress Calculation ---
+//  Progress Calculation 
 function calculateProgress(challenge, logs) {
   const loggedCount = challenge.movieIds.filter(id => logs.includes(id)).length;
   return Math.round((loggedCount / challenge.movieIds.length) * 100);
 }
 
-// --- Rendering ---
-async function fetchMoviePoster(movieId) {
-  try {
-    const res = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`);
-    const data = await res.json();
-    return data.poster_path
-      ? `https://image.tmdb.org/t/p/w500${data.poster_path}`
-      : "../assets/placeholder.png";
-  } catch (err) {
-    console.error("Poster fetch failed", err);
-    return "../assets/placeholder.png";
+//  Rendering 
+async function fetchMoviePosters(movieIds, count = 4) {
+  const posters = [];
+  for (let i = 0; i < Math.min(count, movieIds.length); i++) {
+    try {
+      const res = await fetch(`${BASE_URL}/movie/${movieIds[i]}?api_key=${API_KEY}`);
+      const data = await res.json();
+      if (data.poster_path) {
+        posters.push(`https://image.tmdb.org/t/p/w200${data.poster_path}`);
+      }
+    } catch (err) {
+      console.error("Poster fetch failed", err);
+    }
   }
+  return posters;
 }
+
 
 async function renderChallengeList(containerId, challengeList) {
   const container = document.getElementById(containerId);
@@ -63,13 +67,17 @@ async function renderChallengeList(containerId, challengeList) {
   const logs = getUserLogs();
 
   for (const ch of challengeList) {
-    const poster = await fetchMoviePoster(ch.movieIds[0]);
+    const poster = await fetchMoviePosters(ch.movieIds, 4);
     const progress = calculateProgress(ch, logs);
 
     const li = document.createElement("li");
     li.classList.add("challengeCard");
+
+    const collageHTML = posters.map((src,i) => `<img src="${src} class="poster poster-${i} alt=${ch.title}">`
+    ).join("");
+
     li.innerHTML = `
-      <img src="${poster}" alt="${ch.title}">
+      <div class="posterCollage">${collageHTML}</div>
       <p class="challengeTitle">${ch.title}</p>
       <div class="progressBar">
         <div class="progressFill" style="width: ${progress}%"></div>

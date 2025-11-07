@@ -266,3 +266,27 @@ section h2 {
   border-radius: 4px;
 }
 
+.posterCollage {
+  position: relative;
+  width: 220px;
+  height: 320px;
+}
+
+.posterCollage img {
+  position: absolute;
+  width: 100px;
+  height: 150px;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+  transition: transform 0.2s;
+}
+
+.posterCollage img:hover {
+  transform: scale(1.05);
+}
+
+/* Offset each poster slightly */
+.poster-0 { top: 0; left: 0; z-index: 4; }
+.poster-1 { top: 20px; left: 40px; z-index: 3; }
+.poster-2 { top: 40px; left: 80px; z-index: 2; }
+.poster-3 { top: 60px; left: 120px; z-index: 1; }
