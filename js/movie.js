@@ -47,12 +47,14 @@ async function fetchFilms(endpoint, listId, allPages = false) {
       list.appendChild(li);
     });
 
-    // 🌀 Animate movie cards in with stagger
     gsap.from(`${listId} li`, {
       opacity: 0,
-      y: 20,
-      duration: 0.6,
-      stagger: 0.05,
+      y: 30,
+      duration: 0.9,
+      stagger: {
+    each: 0.12,
+    from: "start"},
+
       ease: "power2.out",
       scrollTrigger: {
         trigger: list,
@@ -66,12 +68,10 @@ async function fetchFilms(endpoint, listId, allPages = false) {
   }
 }
 
-// --- Initial curated lists
 fetchFilms('movie/popular', '#popularList');
 fetchFilms('discover/movie?sort_by=popularity.desc&primary_release_date.gte=1990-01-01&primary_release_date.lte=2005-12-31', '#millennialList');
 fetchFilms('discover/movie?sort_by=popularity.desc&with_origin_country=ZA', '#saList');
 
-// --- Filter logic
 const yearFilter = document.getElementById('yearFilters');
 const ratingFilter = document.getElementById('ratingFilters');
 const popularFilter = document.getElementById('popularFilter');
@@ -156,7 +156,6 @@ async function applyFilters() {
   await fetchFilms(endpoint, '#filteredList', allPages);
 }
 
-// ---- 🎬 GSAP PAGE ENTRANCE SEQUENCE ----
 
 // Create a timeline for intro animation
 const intro = gsap.timeline({ defaults: { ease: "power3.out", duration: 1 } });
@@ -169,7 +168,6 @@ intro
   .from("main section:first-of-type h2", { y: 40, opacity: 0, duration: 0.8 })
   .from("#popularList li", { opacity: 0, y: 20, stagger: 0.05, duration: 0.5 }, "-=0.3");
 
-// ---- 📜 Scroll Animations ----
 gsap.utils.toArray("main section").forEach((section, i) => {
   gsap.from(section, {
     scrollTrigger: {
