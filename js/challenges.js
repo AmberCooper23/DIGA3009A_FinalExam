@@ -46,15 +46,8 @@ function calculateProgress(challenge, logs) {
 async function fetchMoviePosters(movieIds, count = 4) {
   const posters = [];
   for (let i = 0; i < Math.min(count, movieIds.length); i++) {
-    try {
-      const res = await fetch(`${BASE_URL}/movie/${movieIds[i]}?api_key=${API_KEY}`);
-      const data = await res.json();
-      if (data.poster_path) {
-        posters.push(`https://image.tmdb.org/t/p/w200${data.poster_path}`);
-      }
-    } catch (err) {
-      console.error("Poster fetch failed", err);
-    }
+    const src = await fetchMoviePoster(movieIds[i]);
+    posters.push(src);
   }
   return posters;
 }
