@@ -2,7 +2,7 @@ const API_KEY = '0cefd7764121a70764185523e70202ae';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
 
-// ✨ Reworked fetchFilms with all-pages + loading spinner
+// ✨ Reworked fetchFilms with all-pages + loading spinner + GSAP reveal
 async function fetchFilms(endpoint, listId, allPages = false) {
   try {
     const list = document.querySelector(listId);
@@ -21,9 +21,7 @@ async function fetchFilms(endpoint, listId, allPages = false) {
 
       if (data.results && data.results.length > 0) {
         allResults = allResults.concat(data.results);
-      } else {
-        break; // stop when there’s no more results
-      }
+      } else break;
     }
 
     if (allResults.length === 0) {
@@ -49,17 +47,31 @@ async function fetchFilms(endpoint, listId, allPages = false) {
       list.appendChild(li);
     });
 
+    // 🌀 Animate movie cards in with stagger
+    gsap.from(`${listId} li`, {
+      opacity: 0,
+      y: 20,
+      duration: 0.6,
+      stagger: 0.05,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: list,
+        start: "top 90%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
   } catch (err) {
     console.error('Error fetching films:', err);
   }
 }
 
-// Initial curated lists
+// --- Initial curated lists
 fetchFilms('movie/popular', '#popularList');
 fetchFilms('discover/movie?sort_by=popularity.desc&primary_release_date.gte=1990-01-01&primary_release_date.lte=2005-12-31', '#millennialList');
 fetchFilms('discover/movie?sort_by=popularity.desc&with_origin_country=ZA', '#saList');
 
-// Filter logic
+// --- Filter logic
 const yearFilter = document.getElementById('yearFilters');
 const ratingFilter = document.getElementById('ratingFilters');
 const popularFilter = document.getElementById('popularFilter');
@@ -115,12 +127,8 @@ async function applyFilters() {
     endpoint += `&primary_release_date.gte=${gte}&primary_release_date.lte=${lte}`;
   }
 
-  // Balanced top-rated filter (avoids obscure stuff)
-  if (rating === 'desc') {
-    endpoint = `discover/movie?sort_by=vote_average.desc&vote_count.gte=2000&vote_average.gte=7.5`;
-  } else if (rating === 'asc') {
-    endpoint = `discover/movie?sort_by=vote_average.asc&vote_count.gte=2000`;
-  }
+  if (rating === 'desc') endpoint = `discover/movie?sort_by=vote_average.desc&vote_count.gte=2000&vote_average.gte=7.5`;
+  else if (rating === 'asc') endpoint = `discover/movie?sort_by=vote_average.asc&vote_count.gte=2000`;
 
   if (genre) endpoint += `&with_genres=${genre}`;
 
@@ -144,58 +152,35 @@ async function applyFilters() {
 
   filteredHeader.textContent = headerText;
 
-  // Load multiple pages if rating filter is active
   const allPages = rating !== "";
   await fetchFilms(endpoint, '#filteredList', allPages);
 }
 
-// Animate the header on page load
-gsap.from("header", {
-  y: -80,
-  opacity: 0,
-  duration: 1,
-  ease: "power3.out"
-});
+// ---- 🎬 GSAP PAGE ENTRANCE SEQUENCE ----
 
-// Fade in the filters section
-gsap.from(".filters", {
-  y: 30,
-  opacity: 0,
-  duration: 1,
-  delay: 0.5,
-  ease: "power2.out"
-});
+// Create a timeline for intro animation
+const intro = gsap.timeline({ defaults: { ease: "power3.out", duration: 1 } });
 
-// Animate each film section heading
-gsap.utils.toArray("main section h2").forEach((heading, i) => {
-  gsap.from(heading, {
+// Stage-by-stage entrance
+intro
+  .from("header", { y: -80, opacity: 0 })
+  .from("aside", { x: -100, opacity: 0 }, "-=0.6")
+  .from(".filters", { y: 40, opacity: 0 }, "-=0.4")
+  .from("main section:first-of-type h2", { y: 40, opacity: 0, duration: 0.8 })
+  .from("#popularList li", { opacity: 0, y: 20, stagger: 0.05, duration: 0.5 }, "-=0.3");
+
+// ---- 📜 Scroll Animations ----
+gsap.utils.toArray("main section").forEach((section, i) => {
+  gsap.from(section, {
     scrollTrigger: {
-      trigger: heading,
-      start: "top 80%", // animation starts when heading enters viewport
-      toggleActions: "play none none reverse"
-    },
-    y: 40,
-    opacity: 0,
-    duration: 0.8,
-    ease: "power2.out",
-    delay: i * 0.1
-  });
-});
-
-// Animate film lists as they scroll into view
-gsap.utils.toArray(".filmList").forEach((list) => {
-  gsap.from(list, {
-    scrollTrigger: {
-      trigger: list,
+      trigger: section,
       start: "top 85%",
-      toggleActions: "play none none reverse"
+      toggleActions: "play none none reverse",
     },
     opacity: 0,
     y: 50,
     duration: 1,
-    stagger: 0.1,
-    ease: "power2.out"
+    ease: "power2.out",
+    delay: i * 0.05
   });
 });
-
-
