@@ -1,35 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../styling/addLog.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log Media</title>
+  <link rel="stylesheet" href="../styling/addLog.css">
 </head>
 <body>
-    <main>
-  <header>
-    <h1>Log a Movie</h1>
-    <nav>
-      <a href="../index.html">← Back to Home</a>
-    </nav>
-  </header>
+  <main>
+    <header>
+      <h1>Log Media</h1>
+      <p class="tagline">Track your favorite movies and series in one place</p>
+      <nav>
+        <a href="../index.html">← Back to Home</a>
+      </nav>
+    </header>
 
-<main>
-    <section>
-      <h2>Search for a movie</h2>
-      <form id="movieSearchForm">
-        <div class="searchContainer">
-        <input type="text" id="movieSearchInput" autocomplete="off" required>
-        <button type="submit">Search</button>
-        <ul id="suggestions"></ul>
-        </div>
+    <section class="card">
+      <h2>Search for a title</h2>
+      <p class="subtitle">Find movies or series and add them to your diary</p>
+
+      <form id="mediaSearchForm" autocomplete="off">
+        <section class="searchContainer">
+          <input type="text" id="mediaSearchInput" placeholder="Search movies or series..." required>
+          <button type="submit">Search Media</button>
+          <ul id="suggestions"></ul>
+        </section>
       </form>
+
+      <hr class="divider">
+
+      <h3>Results</h3>
+      <p class="subtitle">Click a title below to log it</p>
       <ul id="searchResults"></ul>
     </section>
+
   </main>
 
-<script defer src="../js/addLog.js"></script>
-
+  <script defer src="../js/addLog.js"></script>
 </body>
 </html>
