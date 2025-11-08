@@ -11,7 +11,7 @@ async function fetchFilms(endpoint, listId) {
 
     list.innerHTML = "";
 
-    data.results.slice(0,30).forEach(movie =>{
+    data.results.slice(0,6).forEach(movie =>{
         const li = document.createElement('li');
         const img = document.createElement('img');
         const title = document.createElement('p');
