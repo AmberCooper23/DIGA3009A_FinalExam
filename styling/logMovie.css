@@ -66,9 +66,9 @@ main {
   width: 100%;
   height: auto;
   max-height: 600px;
-  border-radius: 8px;
   object-fit: contain;
   background-color: #000;
+  border-radius: 8px;
   margin-bottom: 1rem;
 }
 
