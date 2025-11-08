@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+      <header>
+    <h1>Log your review</h1>
+    <nav>
+      <a href="../DIGA3009A_FinalExam/pages/addLog.html">← Back to Search</a>
+      <a href="../DIGA3009A_FinalExam/pages/diary.html">Diary</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Movie details fetched from TMDb -->
+    <section id="movieDetails"></section>
+
+    <!-- Log form -->
+    <form id="logForm">
+      <label for="platform">Platform</label>
+      <select id="platform" required>
+        <option value="" disabled selected>Select platform</option>
+        <option>Netflix</option>
+        <option>Disney+</option>
+        <option>ShowMax</option>
+        <option>HBO</option>
+        <option>Streaming</option>
+        <option>Live</option>
+      </select>
+
+      <label for="review">Review</label>
+      <textarea id="review" rows="6" required></textarea>
+
+      <label for="friends">Tag Friends</label>
+      <input id="friends" type="text" autocomplete="off">
+
+      <label>Rating</label>
+      <ul id="stars" class="rating"></ul>
+
+      <button type="submit">Log</button>
+    </form>
+  </main>
+</body>
+</html>
