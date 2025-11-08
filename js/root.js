@@ -15,19 +15,21 @@ const signupBtn = document.getElementById("showSignup");
 const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
 
-loginBtn.addEventListener("click", () => {
-  loginForm.style.display = "block";
-  signupForm.style.display = "none";
-  loginBtn.classList.add("active");
-  signupBtn.classList.remove("active");
-});
+if (loginBtn && signupBtn && loginForm && signupForm) {
+  loginBtn.addEventListener("click", () => {
+    loginForm.style.display = "block";
+    signupForm.style.display = "none";
+    loginBtn.classList.add("active");
+    signupBtn.classList.remove("active");
+  });
 
-signupBtn.addEventListener("click", () => {
-  signupForm.style.display = "block";
-  loginForm.style.display = "none";
-  signupBtn.classList.add("active");
-  loginBtn.classList.remove("active");
-});
+  signupBtn.addEventListener("click", () => {
+    signupForm.style.display = "block";
+    loginForm.style.display = "none";
+    signupBtn.classList.add("active");
+    loginBtn.classList.remove("active");
+  });
+}
 
 signupForm.addEventListener("submit", (e) => {
   e.preventDefault();
