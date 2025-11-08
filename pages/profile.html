@@ -39,19 +39,27 @@
 </aside>
 
   <main>
-    <header>
-    <h1>My Profile</h1>
-    <button id="editProfileBtn">Edit Profile</button>
-  </header>
-  
-    <section>
-      <h2>Top 4 Movies</h2>
-      <div id="topMovies" class="topGrid"></div>
+    <section class="profileHeader">
+      <h1>My Profile</h1>
+      <p id="profileHandle">@username</p>
+      <p id="profileBio">short bio</p>
+
+      <section id="identityEditor" hidden>
+        <input id="editUsername" type="text" placeholder="Username">
+        <textarea id="editBio" placeholder="Short bio"></textarea>
+      </section>
+
+      <button id="editProfileBtn">Edit profile</button>
     </section>
 
-    <section>
-      <h2>Top 4 Series</h2>
-      <div id="topSeries" class="topGrid"></div>
+    <section class="topSection">
+      <header><h2>Top 4 Movies</h2></header>
+      <ul id="topMovies" class="topGrid"></ul>
+    </section>
+
+    <section class="topSection">
+      <header><h2>Top 4 Series</h2></header>
+      <ul id="topSeries" class="topGrid"></ul>
     </section>
   </main>
 
