@@ -16,6 +16,7 @@ const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
 
 if (loginBtn && signupBtn && loginForm && signupForm) {
+  // Toggle between login and signup forms
   loginBtn.addEventListener("click", () => {
     loginForm.style.display = "block";
     signupForm.style.display = "none";
@@ -29,57 +30,59 @@ if (loginBtn && signupBtn && loginForm && signupForm) {
     signupBtn.classList.add("active");
     loginBtn.classList.remove("active");
   });
-}
 
-signupForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const username = document.getElementById("signupUsername").value.trim();
-  const password = document.getElementById("signupPassword").value.trim();
-  const email = document.getElementById("signupEmail").value.trim();
+  // Signup form submit
+  signupForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = document.getElementById("signupUsername").value.trim();
+    const password = document.getElementById("signupPassword").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
 
-  let users = getUsers();
+    let users = getUsers();
 
-  if (users.find(u => u.username === username)) {
-    alert("Username already exists. Please choose another.");
-    return;
-  }
+    if (users.find(u => u.username === username)) {
+      alert("Username already exists. Please choose another.");
+      return;
+    }
 
-  users.push({ username, password, email });
-  saveUsers(users);
-  setCurrentUser(username);
+    users.push({ username, password, email });
+    saveUsers(users);
+    setCurrentUser(username);
 
-  emailjs.send("service_0984bwn", "template_437ihss", {
-    username: username,
-    to_email: email
-  })
-  .then(() => {
-    console.log("Confirmation email sent!");
-    window.location.href = "../index.html";
-  })
-  .catch((err) => {
-    console.error("Email failed:", err);
-    alert("Account created, but email could not be verified.");
+    emailjs.send("service_0984bwn", "template_437ihss", {
+      username: username,
+      to_email: email
+    })
+    .then(() => {
+      console.log("Confirmation email sent!");
+      window.location.href = "../index.html";
+    })
+    .catch((err) => {
+      console.error("Email failed:", err);
+      alert("Account created, but email could not be verified.");
+      window.location.href = "../index.html";
+    });
+  });
+
+  // Login form submit
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+
+    let users = getUsers();
+    const user = users.find(u => u.username === username && u.password === password);
+
+    if (!user) {
+      alert("Invalid username or password.");
+      return;
+    }
+
+    setCurrentUser(username);
+    alert(`Welcome back, ${username}!`);
     window.location.href = "../index.html";
   });
-});
-
-loginForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const username = document.getElementById("loginUsername").value.trim();
-  const password = document.getElementById("loginPassword").value.trim();
-
-  let users = getUsers();
-  const user = users.find(u => u.username === username && u.password === password);
-
-  if (!user) {
-    alert("Invalid username or password.");
-    return;
-  }
-
-  setCurrentUser(username);
-  alert(`Welcome back, ${username}!`);
-  window.location.href = "../index.html";
-});
+}
 
 // ===== Header Dropdown Logic =====
 document.addEventListener("DOMContentLoaded", () => {
