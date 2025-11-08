@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>diary mediaboxd</title>
+  <link rel="stylesheet" href="../styling/diary.css">
 </head>
 <body>
-    
+  <header>
+       <h1 class="logo">
+        mediaboxd
+       </h1>
+       <form role="search">
+        <input type="text" id="searchInput" placeholder="Search...">
+       </form>
+       <a id="headerUser" class="login"> 
+        Log In
+       </a>
+    </header>
+
+    <aside class="navLinks">
+        <ul class="navBar">
+          <li><a class="nav-u-url" href="../index.html"><button class="navButton active"> home </button></a></li>
+          <li><a class="nav-u-url" href="../pages/movies.html"><button class="navButton"> movies </button></a></li></a></li>
+          <li><a class="nav-u-url" href="../pages/musicals.html"><button class="navButton"> musicals </button></a></li></a></li>
+          <li><a class="nav-u-url" href="../pages/challenges.html"><button class="navButton"> challenges </button></a></li></a></li>
+          <li><a class="nav-u-url, activePage" href="../pages/diary.html"><button class="navButton"> diary </button></a></li></a></li>
+        </ul>  
+        <button onclick="window.location.href='pages/addLog.html'" href="../DIGA3009A_FinalExam/pages/addLog.html">
+            Log+
+        </button>
+     </aside>
+
+  <main id="diaryContainer"></main>
+
+  <script defer src="../js/diary.js"></script>
 </body>
 </html>
