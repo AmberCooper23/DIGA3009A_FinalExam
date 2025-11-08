@@ -44,12 +44,11 @@ document.getElementById("signupForm").addEventListener("submit", (e) => {
   })
   .then(() => {
     console.log("Confirmation email sent!");
-    alert(`Account created! Welcome, ${username}. A confirmation email has been sent.`);
     window.location.href = "../index.html";
   })
   .catch((err) => {
     console.error("Email failed:", err);
-    alert("Account created, but email could not be sent.");
+    alert("Account created, but email could not be verified.");
     window.location.href = "../index.html";
   });
 });
