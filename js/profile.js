@@ -11,7 +11,21 @@ const editBio = document.getElementById("editBio");
 const topMovies = document.getElementById("topMovies");
 const topSeries = document.getElementById("topSeries");
 
+// Create modal
+const modalOverlay = document.createElement("section");
+modalOverlay.id = "searchModal";
+modalOverlay.innerHTML = `
+  <section>
+    <input id="searchInputModal" type="text" placeholder="Search TMDb...">
+    <ul id="searchResultsModal"></ul>
+    <button id="closeModal">Close</button>
+  </section>
+`;
+document.body.appendChild(modalOverlay);
+modalOverlay.style.display = "none";
+
 let editMode = false;
+let activeSlot = { type: "", index: 0 };
 
 function getProfiles() {
   return JSON.parse(localStorage.getItem("profiles")) || {};
@@ -63,10 +77,9 @@ async function renderList(container, items, type) {
     } else {
       li.textContent = "Empty slot";
       li.classList.add("emptySlot");
-
-      // Allow user to click and search
       li.addEventListener("click", () => {
-        openSearchPrompt(type, i);
+        activeSlot = { type, index: i };
+        openSearchModal();
       });
     }
 
@@ -74,31 +87,59 @@ async function renderList(container, items, type) {
   }
 }
 
-function openSearchPrompt(type, index) {
-  const query = prompt(`Search for a ${type === "movie" ? "movie" : "series"}:`);
-  if (!query) return;
+function openSearchModal() {
+  modalOverlay.style.display = "flex";
+  const modalContent = modalOverlay.querySelector("section");
+  modalContent.style.opacity = "0";
+  modalContent.style.transform = "scale(0.8)";
+  gsap.to(modalContent, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" });
 
-  searchTMDb(query, type).then(results => {
-    if (results.length === 0) {
-      alert("No results found.");
-      return;
+  document.getElementById("searchInputModal").value = "";
+  document.getElementById("searchResultsModal").innerHTML = "";
+}
+
+function closeSearchModal() {
+  const modalContent = modalOverlay.querySelector("section");
+  gsap.to(modalContent, {
+    opacity: 0,
+    scale: 0.8,
+    duration: 0.3,
+    ease: "power2.in",
+    onComplete: () => {
+      modalOverlay.style.display = "none";
     }
-
-    // Show simple selection prompt
-    const choices = results.slice(0, 5).map((r, i) => `${i + 1}. ${r.title}`).join("\n");
-    const choice = prompt(`Select a number:\n${choices}`);
-    const selected = results[parseInt(choice) - 1];
-    if (!selected) return;
-
-    const profiles = getProfiles();
-    const profile = profiles[currentUser] || { bio: "", movies: [], series: [] };
-    const arr = type === "movie" ? profile.movies : profile.series;
-    arr[index] = { id: selected.id, type };
-    profiles[currentUser] = profile;
-    saveProfiles(profiles);
-    renderProfile();
   });
 }
+
+document.getElementById("closeModal").addEventListener("click", closeSearchModal);
+
+document.getElementById("searchInputModal").addEventListener("input", async (e) => {
+  const query = e.target.value.trim();
+  if (!query) return;
+
+  const results = await searchTMDb(query, activeSlot.type);
+  const resultsList = document.getElementById("searchResultsModal");
+  resultsList.innerHTML = "";
+
+  results.slice(0, 10).forEach(result => {
+    const item = document.createElement("li");
+    item.innerHTML = `
+      <img src="${result.poster}" alt="${result.title}" />
+      <p>${result.title}</p>
+    `;
+    item.addEventListener("click", () => {
+      const profiles = getProfiles();
+      const profile = profiles[currentUser] || { bio: "", movies: [], series: [] };
+      const arr = activeSlot.type === "movie" ? profile.movies : profile.series;
+      arr[activeSlot.index] = { id: result.id, type: activeSlot.type };
+      profiles[currentUser] = profile;
+      saveProfiles(profiles);
+      closeSearchModal();
+      renderProfile();
+    });
+    resultsList.appendChild(item);
+  });
+});
 
 async function renderProfile() {
   const profiles = getProfiles();
