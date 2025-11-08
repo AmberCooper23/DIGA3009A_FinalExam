@@ -5,8 +5,7 @@
 body {
   margin: 0;
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
-  background: url('../styling/bg.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background: #a7c5d6;
   color: #1f2937;
   position: relative;
 }
