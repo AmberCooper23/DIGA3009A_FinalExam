@@ -38,7 +38,7 @@ document.getElementById("signupForm").addEventListener("submit", (e) => {
   setCurrentUser(username);
 
   //  Send confirmation email 
-  emailjs.send("service_0984bwn", "YOUR_TEMPLATE_ID", {
+  emailjs.send("service_0984bwn", "template_437ihss", {
     username: username,
     to_email: email
   })
