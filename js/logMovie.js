@@ -6,14 +6,15 @@ console.log("logMovie.js loaded");
 document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
-  const type = params.get("type") || "movie"; // default to movie
+  const type = params.get("type") || "movie";
 
+  const posterEl = document.getElementById("poster");
+  const titleEl = document.getElementById("title");
   const movieDetails = document.getElementById("movieDetails");
   const logForm = document.getElementById("logForm");
   const starsContainer = document.getElementById("stars");
 
-  // Guard: if elements missing, stop
-  if (!id || !movieDetails || !logForm || !starsContainer) {
+  if (!id || !posterEl || !titleEl || !movieDetails || !logForm || !starsContainer) {
     console.warn("Required elements not found on page.");
     return;
   }
@@ -37,13 +38,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const title = media.title || media.name;
     const year = media.release_date?.slice(0,4) || media.first_air_date?.slice(0,4) || "N/A";
 
-    movieDetails.innerHTML = `
-      <img src="${media.poster_path ? IMG_BASE + media.poster_path : ''}" alt="${title}" style="height:200px">
-      <h2>${title} (${year}) ${director ? "- " + director : ""}</h2>
-    `;
+    posterEl.src = media.poster_path ? IMG_BASE + media.poster_path : "";
+    posterEl.alt = title;
+    titleEl.textContent = `${title} (${year}) ${director ? "- " + director : ""}`;
   } catch (err) {
     console.error("Details error:", err);
-    movieDetails.textContent = "Error loading media details.";
+    titleEl.textContent = "Error loading media details.";
   }
 
   let rating = 0;
