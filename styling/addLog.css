@@ -1,8 +1,9 @@
+/* General page layout */
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background: #f5f7fa;
+  background: #f5f7fa; 
   color: #333;
 }
 
@@ -15,85 +16,111 @@ header {
   align-items: center;
 }
 
-header h1 { margin: 0; font-size: 1.5rem; }
-nav a, nav button {
-  color: #fff;
-  background: none;
-  border: none;
-  font-weight: 500;
-  margin-left: 1rem;
-  cursor: pointer;
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
 }
-nav a:hover, nav button:hover { text-decoration: underline; }
 
-.modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(5px);
-  z-index: 1000;
-  justify-content: center;
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.searchContainer {
+  position: relative;
+  display: flex;
   align-items: center;
 }
 
-.modal-content {
-  background: #fff;
-  border-radius: 8px;
-  padding: 2rem;
-  max-width: 500px;
-  width: 90%;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  position: relative;
-}
-
-.close {
-  position: absolute;
-  top: 1rem; right: 1rem;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.searchContainer { position: relative; }
 #movieSearchInput {
-  width: 100%;
+  flex: 1;
   padding: 0.75rem 1rem;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 25px;
   outline: none;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
 }
+
 #movieSearchInput:focus {
   border-color: #3498db;
   box-shadow: 0 0 5px rgba(52,152,219,0.4);
 }
 
+.searchContainer button {
+  margin-left: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 25px;
+  background: #3498db;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.searchContainer button:hover {
+  background: #2980b9;
+}
+
+/* Suggestions dropdown */
 #suggestions {
   position: absolute;
-  top: 100%; left: 0; right: 0;
+  top: 100%;
+  left: 0;
+  right: 0;
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 8px;
   list-style: none;
   margin: 0.25rem 0 0;
   padding: 0;
-  z-index: 1001;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
+
 #suggestions li {
   padding: 0.5rem 1rem;
   cursor: pointer;
+  font-size: 0.95rem;
 }
-#suggestions li:hover { background: #f0f0f0; }
 
+#suggestions li:hover {
+  background: #f0f0f0;
+}
+
+/* Search results list */
 #searchResults {
   list-style: none;
-  margin-top: 1rem;
+  margin: 1.5rem 0 0;
   padding: 0;
 }
+
 #searchResults li {
-  padding: 0.5rem 0;
+  padding: 0.75rem 1rem;
   border-bottom: 1px solid #eee;
+  font-size: 1rem;
+}
+
+#searchResults li:hover {
+  background: #fafafa;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.85rem;
+  color: #777;
 }
