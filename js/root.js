@@ -5,7 +5,7 @@ function getUsers() {
 function saveUsers(users) {
   localStorage.setItem("users", JSON.stringify(users));
 }
-
+// merp 
 function setCurrentUser(username) {
   localStorage.setItem("currentUser", username);
 }
