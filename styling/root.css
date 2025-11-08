@@ -156,3 +156,48 @@ section a {
     word-wrap: break-word;
     white-space: normal;
 }
+
+.userMenu {
+  position: relative;
+  display: inline-block;
+}
+
+.userTrigger {
+  font-weight: bold;
+  color: #111;
+  background: #4caf50;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.userTrigger:hover {
+  background: #43a047;
+  color: #fff;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 110%;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  z-index: 1000;
+}
+
+.dropdown a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #111;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.dropdown a:hover {
+  background: #f0f0f0;
+}
