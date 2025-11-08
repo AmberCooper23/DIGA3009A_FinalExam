@@ -11,7 +11,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const logForm = document.getElementById("logForm");
   const starsContainer = document.getElementById("stars");
 
-  if (!movieId || !movieDetails || !logForm || !starsContainer) return;
+  // Guard: if elements missing, stop
+  if (!movieId || !movieDetails || !logForm || !starsContainer) {
+    console.warn("Required elements not found on page.");
+    return;
+  }
 
   // Fetch movie details
   try {
@@ -27,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     movieDetails.textContent = "Error loading movie details.";
   }
 
-  // Interactive star rating (Letterboxd style)
+  // Interactive star rating
   let rating = 0;
   starsContainer.innerHTML = "";
   for (let i = 1; i <= 5; i++) {
@@ -36,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     star.dataset.value = i;
     star.style.cursor = "pointer";
     star.style.fontSize = "2rem";
-    star.style.color = "#ccc"; // empty by default
+    star.style.color = "#ccc";
 
     star.addEventListener("click", () => {
       rating = i;
@@ -51,9 +55,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Save log
   logForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const platform = document.getElementById("platform").value;
-    const review = document.getElementById("review").value.trim();
-    const friends = document.getElementById("friends").value.trim();
+
+    const platformEl = document.getElementById("platform");
+    const reviewEl = document.getElementById("review");
+    const friendsEl = document.getElementById("friends");
+
+    if (!platformEl || !reviewEl) {
+      alert("Form elements missing.");
+      return;
+    }
+
+    const platform = platformEl.value;
+    const review = reviewEl.value.trim();
+    const friends = friendsEl ? friendsEl.value.trim() : "";
 
     let logs = JSON.parse(localStorage.getItem("movieLogs")) || [];
     logs.push({
