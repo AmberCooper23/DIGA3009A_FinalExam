@@ -25,6 +25,11 @@ function renderNavBar() {
   container.appendChild(nav);
 }
 
+if (window.location.pathname.includes(item.href)) {
+  a.classList.add("active");
+}
+
+
 document.addEventListener("DOMContentLoaded", renderNavBar);
 
 function getUsers() {
