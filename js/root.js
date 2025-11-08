@@ -83,7 +83,7 @@ loginForm.addEventListener("submit", (e) => {
 document.addEventListener("DOMContentLoaded", () => {
   const headerUser = document.getElementById("headerUser");
   const dropdown = document.getElementById("userDropdown");
-  const logoutBtn = document.getElementById("logoutBtn");
+  const logOut = document.getElementById("logOut");
   const currentUser = localStorage.getItem("currentUser");
 
   if (headerUser) {
@@ -109,8 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", (e) => {
+  if (logOut) {
+    logOut.addEventListener("click", (e) => {
       e.preventDefault();
       localStorage.removeItem("currentUser");
       window.location.href = "pages/login.html";
