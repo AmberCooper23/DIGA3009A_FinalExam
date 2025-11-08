@@ -50,6 +50,7 @@ signupForm.addEventListener("submit", (e) => {
     username: username,
     to_email: email
   })
+  
   .then(() => {
     console.log("Confirmation email sent!");
     window.location.href = "../index.html";
