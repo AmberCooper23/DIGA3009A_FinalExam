@@ -1,45 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Profile</title>
-  <link rel="stylesheet" href="../styling/profile.css">
-  <link rel="stylesheet" href="../styling/root.css">
+  <meta charset="UTF-8" />
+  <title>My Profile</title>
+  <link rel="stylesheet" href="../styling/profile.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
-    <header>
-       <h1 class="logo">
-        mediaboxd
-       </h1>
-       <form role="search">
-        <input type="text" id="searchInput" placeholder="Search...">
-       </form>
-       <a id="headerUser" class="userTrigger" href="../pages/login.html"> 
-        Log In
-       </a>
-       <section id="userDropdown" class="dropdown">
-        <a href="../pages/profile.html">My Profile</a>
-        <a href="../pages/diary.html">My Diary</a>
-        <a href="../pages/myLists.html">My Lists</a>
-        <a href="#" id="logOut"> Sign Out </a>
-       </section>
-    </header>
+  <header>
+    <h1 class="logo">mediaboxd</h1>
+    <form role="search">
+      <input type="text" id="searchInput" placeholder="Search..." />
+    </form>
+    <a class="userTrigger" href="../pages/login.html">Log In</a>
+  </header>
 
-<aside class="navLinks">
-        <ul class="navBar">
-          <li><a class="nav-u-url" href="../index.html"><button class="navButton active"> home </button></a></li>
-          <li><a class="nav-u-url, activePage" href="../pages/movies.html"><button class="navButton"> movies </button></a></li></a></li>
-          <li><a class="nav-u-url" href="../pages/musicals.html"><button class="navButton"> musicals </button></a></li></a></li>
-          <li><a class="nav-u-url" href="../pages/challenges.html"><button class="navButton"> challenges </button></a></li></a></li>
-          <li><a class="nav-u-url" href="../pages/diary.html"><button class="navButton"> diary </button></a></li></a></li>
-        </ul>  
-        <button onclick="window.location.href='pages/addLog.html'" href="../DIGA3009A_FinalExam/pages/addLog.html">
-            Log+
-        </button>
-</aside>
+  <aside id="navBarContainer"></aside>
 
   <main>
-    <main>
     <section class="profileHeader">
       <h1>My Profile</h1>
       <p id="profileHandle"></p>
@@ -49,7 +27,7 @@
         <textarea id="editBio"></textarea>
       </section>
 
-      <button id="editProfileBtn">Edit bio</button>
+      <button id="editProfileBtn">Edit profile</button>
     </section>
 
     <section class="topSection">
@@ -62,17 +40,8 @@
       <ul id="topSeries" class="topGrid"></ul>
     </section>
   </main>
-  
-  <section id="searchModal" class="modal" hidden>
-    <header>
-      <h2>Search</h2>
-      <button id="closeModal">×</button>
-    </header>
-    <input id="searchQuery" type="text" placeholder="Search title...">
-    <button id="searchBtn">Search</button>
-    <ul id="searchResults"></ul>
-  </section>
 
   <script defer src="../js/profile.js"></script>
+  <script defer src="../js/root.js"></script>
 </body>
 </html>
