@@ -1,3 +1,32 @@
+const navItems = [
+  { label: "Home", href: "index.html" },
+  { label: "Movies", href: "movies.html" },
+  { label: "Challenges", href: "challenges.html" },
+  { label: "Diary", href: "diary.html" }
+];
+
+function renderNavBar() {
+  const container = document.getElementById("navBarContainer");
+  if (!container) return;
+
+  const nav = document.createElement("nav");
+  const ul = document.createElement("ul");
+
+  navItems.forEach(item => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.textContent = item.label;
+    a.href = item.href;
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+
+  nav.appendChild(ul);
+  container.appendChild(nav);
+}
+
+document.addEventListener("DOMContentLoaded", renderNavBar);
+
 function getUsers() {
   return JSON.parse(localStorage.getItem("users")) || [];
 }
