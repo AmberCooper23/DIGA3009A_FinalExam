@@ -51,15 +51,15 @@ header {
 
 .tabs button {
   flex: 1;
-  padding: 0.75rem;
-  background: #8eb3c7;
-  border: none;
-  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  border: 2px solid #769cb3; 
+  border-radius: 8px;
+  background: #f0f0f0;
   color: #111;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
 }
 
 .tabs button:hover {
