@@ -140,6 +140,9 @@ nav a:hover {
   padding: 0.25rem 0;
   box-shadow: 0 10px 24px rgba(17, 24, 39, 0.12);
   z-index: 10;
+
+  max-height: calc(5 * 2.5rem); /* ~5 rows tall */
+  overflow-y: auto;
 }
 
 #suggestions li {
@@ -155,6 +158,7 @@ nav a:hover {
 #suggestions li:hover {
   background: #f9fafb;
 }
+
 
 .divider {
   border: 0;
