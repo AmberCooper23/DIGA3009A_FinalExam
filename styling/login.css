@@ -1,0 +1,114 @@
+/* Reset & basics */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #a7c5d6; 
+  color: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+}
+
+/* Header */
+header {
+  width: 100%;
+  padding: 16px;
+  text-align: center;
+  background: #a7c5d6;
+  border-bottom: 2px solid rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #111;
+}
+
+/* Container */
+.accountContainer {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 400px;
+  background: #91b6cc; 
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1.5rem;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 0.75rem;
+  background: #8eb3c7;
+  border: none;
+  border-radius: 6px;
+  color: #111;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.tabs button:hover {
+  background: rgba(255,255,255,0.4);
+}
+
+.tabs button.active {
+  background: #1c1c1c;
+  color: #fff;
+}
+
+/* Forms */
+.accountForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.accountForm h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #111;
+}
+
+.accountForm input {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background: #fff;
+  color: #111;
+}
+
+.accountForm input:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+.accountForm button {
+  padding: 0.75rem;
+  background: #4caf50;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.accountForm button:hover {
+  background: #43a047;
+}
