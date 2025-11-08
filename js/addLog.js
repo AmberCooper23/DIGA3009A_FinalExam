@@ -2,6 +2,8 @@
 const API_KEY = '0cefd7764121a70764185523e70202ae';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
+console.log("addLog.js loaded");
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const searchForm = document.getElementById("movieSearchForm");
