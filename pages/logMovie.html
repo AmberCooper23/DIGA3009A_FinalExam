@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../styling/logMovie.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log Movie</title>
+  <link rel="stylesheet" href="../styling/logMovie.css">
 </head>
 <body>
-      <header>
+  <header>
     <h1>Log your review</h1>
     <nav>
       <a href="../pages/addLog.html">← Back to Search</a>
@@ -16,9 +16,7 @@
   </header>
 
   <main>
-    <section id="movieDetails"></section>
-    <form id="logForm">
-      <label for="platform">Platform</label>
+    <section id="movieDetails">
       <select id="platform" required>
         <option value="" disabled selected>Select platform</option>
         <option>Netflix</option>
@@ -28,7 +26,9 @@
         <option>Streaming</option>
         <option>Live</option>
       </select>
+    </section>
 
+    <form id="logForm">
       <label for="review">Review</label>
       <textarea id="review" rows="6" required></textarea>
 
@@ -36,9 +36,10 @@
       <input id="friends" type="text" autocomplete="off">
 
       <label>Rating</label>
-      <ul id="stars" class="rating"></ul>
-
-      <button type="submit">Log</button>
+      <div class="ratingRow">
+        <ul id="stars" class="rating"></ul>
+        <button type="submit">Log</button>
+      </div>
     </form>
   </main>
 
