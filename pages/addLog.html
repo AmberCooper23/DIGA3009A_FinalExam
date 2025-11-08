@@ -16,7 +16,7 @@
       </nav>
     </header>
 
-    <section class="card">
+    <section id="searchSection" class="card">
       <h2>Search for a title</h2>
       <p class="subtitle">Find movies or series and add them to your diary</p>
 
@@ -27,14 +27,18 @@
           <ul id="suggestions"></ul>
         </section>
       </form>
+    </section>
 
-      <hr class="divider">
-
+    <section id="resultsSection" class="card" style="display:none;">
+      <button id="backToSearchBtn">← Back to Search</button>
       <h3>Results</h3>
       <p class="subtitle">Click a title below to log it</p>
       <ul id="searchResults"></ul>
     </section>
 
+    <footer>
+      <p>Powered by TMDb • Your movie & series journey starts here</p>
+    </footer>
   </main>
 
   <script defer src="../js/addLog.js"></script>

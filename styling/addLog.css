@@ -229,3 +229,17 @@ footer {
     font-size: 0.98rem;
   }
 }
+
+#backToSearchBtn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 0.75rem;
+}
+
+#backToSearchBtn:hover {
+  text-decoration: underline;
+}
