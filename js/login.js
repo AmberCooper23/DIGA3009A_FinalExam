@@ -10,6 +10,16 @@ function setCurrentUser(username) {
   localStorage.setItem("currentUser", username);
 }
 
+document.getElementById("showLogin").addEventListener("click", () => {
+  document.getElementById("loginForm").style.display = "block";
+  document.getElementById("signupForm").style.display = "none";
+});
+
+document.getElementById("showSignup").addEventListener("click", () => {
+  document.getElementById("signupForm").style.display = "block";
+  document.getElementById("loginForm").style.display = "none";
+});
+
 document.getElementById("signupForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const username = document.getElementById("signupUsername").value.trim();
