@@ -10,11 +10,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const posterEl = document.getElementById("poster");
   const titleEl = document.getElementById("title");
-  const movieDetails = document.getElementById("movieDetails");
   const logForm = document.getElementById("logForm");
   const starsContainer = document.getElementById("stars");
 
-  if (!id || !posterEl || !titleEl || !movieDetails || !logForm || !starsContainer) {
+  if (!id || !posterEl || !titleEl || !logForm || !starsContainer) {
     console.warn("Required elements not found on page.");
     return;
   }
@@ -72,6 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const platformEl = document.getElementById("platform");
     const reviewEl = document.getElementById("review");
     const friendsEl = document.getElementById("friends");
+    const watchDateEl = document.getElementById("watchDate");
 
     if (!platformEl || !reviewEl) {
       alert("Form elements missing.");
@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const platform = platformEl.value;
     const review = reviewEl.value.trim();
     const friends = friendsEl ? friendsEl.value.trim() : "";
+    const watchDate = watchDateEl ? watchDateEl.value : "";
 
     let logs = JSON.parse(localStorage.getItem("movieLogs")) || [];
     logs.push({
@@ -90,7 +91,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       review,
       friends,
       rating,
-      date: new Date().toISOString(),
+      watchDate,
+      loggedAt: new Date().toISOString(),
     });
     localStorage.setItem("movieLogs", JSON.stringify(logs));
 
