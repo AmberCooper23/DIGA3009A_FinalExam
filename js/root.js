@@ -1,4 +1,3 @@
-// ===== Nav Bar Rendering =====
 const navItems = [
   { label: "home", href: "../index.html" },
   { label: "movies", href: "../pages/movies.html" },
@@ -51,44 +50,7 @@ function renderNavBar() {
 
 renderNavBar();
 
-// ===== GSAP Page Entrance =====
-document.addEventListener("DOMContentLoaded", () => {
-  const intro = gsap.timeline({ defaults: { ease: "power3.out", duration: 1 } });
 
-  intro
-    .from("header", { y: -80, opacity: 0 })
-    .from("aside", { x: -100, opacity: 0 }, "-=0.6")
-    .from(".filters", { y: 40, opacity: 0 }, "-=0.4")
-    .from("main section:first-of-type h2", { y: 40, opacity: 0 });
-
-  gsap.utils.toArray("main section").forEach((section, i) => {
-    gsap.from(section, {
-      scrollTrigger: {
-        trigger: section,
-        start: "top 85%",
-        toggleActions: "play none none reverse",
-      },
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      ease: "power2.out",
-      delay: i * 0.05
-    });
-  });
-
-  gsap.registerPlugin(MotionPathPlugin);
-  gsap.to(".logo", {
-    duration: 2,
-    ease: "power1.inOut",
-    motionPath: {
-      path: [{ x: 0, y: 0 }, { x: 100, y: -50 }, { x: 200, y: 0 }],
-      autoRotate: true
-    }
-  });
-  
-});
-
-// ===== Auth Logic =====
 function getUsers() {
   return JSON.parse(localStorage.getItem("users")) || [];
 }
@@ -107,6 +69,7 @@ const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
 
 if (loginBtn && signupBtn && loginForm && signupForm) {
+  // Toggle between login and signup forms
   loginBtn.addEventListener("click", () => {
     loginForm.style.display = "block";
     signupForm.style.display = "none";
@@ -121,6 +84,7 @@ if (loginBtn && signupBtn && loginForm && signupForm) {
     loginBtn.classList.remove("active");
   });
 
+  // Signup form submit
   signupForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const username = document.getElementById("signupUsername").value.trim();
@@ -128,8 +92,9 @@ if (loginBtn && signupBtn && loginForm && signupForm) {
     const email = document.getElementById("signupEmail").value.trim();
 
     let users = getUsers();
+
     if (users.find(u => u.username === username)) {
-      alert("Username already exists.");
+      alert("Username already exists. Please choose another.");
       return;
     }
 
@@ -138,19 +103,21 @@ if (loginBtn && signupBtn && loginForm && signupForm) {
     setCurrentUser(username);
 
     emailjs.send("service_0984bwn", "template_437ihss", {
-      username,
+      username: username,
       to_email: email
     })
     .then(() => {
       console.log("Confirmation email sent!");
       window.location.href = "../index.html";
     })
-    .catch(() => {
-      alert("Account created, but email failed.");
+    .catch((err) => {
+      console.error("Email failed:", err);
+      alert("Account created, but email could not be verified.");
       window.location.href = "../index.html";
     });
   });
 
+  // Login form submit
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const username = document.getElementById("loginUsername").value.trim();
@@ -160,7 +127,7 @@ if (loginBtn && signupBtn && loginForm && signupForm) {
     const user = users.find(u => u.username === username && u.password === password);
 
     if (!user) {
-      alert("Invalid login.");
+      alert("Invalid username or password.");
       return;
     }
 
@@ -170,7 +137,7 @@ if (loginBtn && signupBtn && loginForm && signupForm) {
   });
 }
 
-// ===== Header Dropdown =====
+// ===== Header Dropdown Logic =====
 document.addEventListener("DOMContentLoaded", () => {
   const headerUser = document.getElementById("headerUser");
   const dropdown = document.getElementById("userDropdown");
