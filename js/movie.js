@@ -2,13 +2,12 @@ const API_KEY = '0cefd7764121a70764185523e70202ae';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
 
-// ✨ Reworked fetchFilms with all-pages + loading spinner + GSAP reveal
+// ✨ Fetch and render movies
 async function fetchFilms(endpoint, listId, allPages = false) {
   try {
     const list = document.querySelector(listId);
     if (!list) return;
 
-    // add loading spinner
     list.innerHTML = "<p style='text-align:center; padding:20px;'>Loading...</p>";
 
     let allResults = [];
@@ -18,10 +17,8 @@ async function fetchFilms(endpoint, listId, allPages = false) {
       const url = `${BASE_URL}/${endpoint}${endpoint.includes('?') ? '&' : '?'}api_key=${API_KEY}&language=en-US&page=${page}`;
       const response = await fetch(url);
       const data = await response.json();
-
-      if (data.results && data.results.length > 0) {
-        allResults = allResults.concat(data.results);
-      } else break;
+      if (data.results?.length) allResults.push(...data.results);
+      else break;
     }
 
     if (allResults.length === 0) {
@@ -39,11 +36,11 @@ async function fetchFilms(endpoint, listId, allPages = false) {
       img.alt = movie.title;
       title.textContent = movie.title;
 
-      li.addEventListener('click', () => {
-        window.location.href = `${window.location.origin}/DIGA3009A_FinalExam/pages/movieInfo.html?id=${movie.id}`;
-      });
-
       li.append(img, title);
+      li.onclick = () => {
+        window.location.href = `../pages/movieInfo.html?id=${movie.id}`;
+      };
+
       list.appendChild(li);
     });
 
@@ -51,10 +48,7 @@ async function fetchFilms(endpoint, listId, allPages = false) {
       opacity: 0,
       y: 30,
       duration: 0.9,
-      stagger: {
-    each: 0.12,
-    from: "start"},
-
+      stagger: 0.12,
       ease: "power2.out",
       scrollTrigger: {
         trigger: list,
@@ -62,16 +56,17 @@ async function fetchFilms(endpoint, listId, allPages = false) {
         toggleActions: "play none none reverse"
       }
     });
-
   } catch (err) {
     console.error('Error fetching films:', err);
   }
 }
 
+// Initial fetches
 fetchFilms('movie/popular', '#popularList');
 fetchFilms('discover/movie?sort_by=popularity.desc&primary_release_date.gte=1990-01-01&primary_release_date.lte=2005-12-31', '#millennialList');
 fetchFilms('discover/movie?sort_by=popularity.desc&with_origin_country=ZA', '#saList');
 
+// 🎛 Filter logic
 const yearFilter = document.getElementById('yearFilters');
 const ratingFilter = document.getElementById('ratingFilters');
 const popularFilter = document.getElementById('popularFilter');
@@ -143,8 +138,8 @@ async function applyFilters() {
     headerText = `${genreText} Movies`;
   }
   if (year) headerText += ` (${year})`;
-  if (rating === 'desc') headerText += " – Top Rated (Popular Picks)";
-  if (rating === 'asc') headerText += " – Lowest Rated (≥2000 votes)";
+  if (rating === 'desc') headerText += " – Top Rated";
+  if (rating === 'asc') headerText += " – Lowest Rated";
   if (popular === 'week') headerText = "Trending This Week";
   if (popular === 'month') headerText = "Trending This Month";
   if (popular === 'year') headerText = "Top Movies of the Year";
@@ -156,11 +151,9 @@ async function applyFilters() {
   await fetchFilms(endpoint, '#filteredList', allPages);
 }
 
-
-// Create a timeline for intro animation
+// 🎬 GSAP entrance animation
 const intro = gsap.timeline({ defaults: { ease: "power3.out", duration: 1 } });
 
-// Stage-by-stage entrance
 intro
   .from("header", { y: -80, opacity: 0 })
   .from("aside", { x: -100, opacity: 0 }, "-=0.6")

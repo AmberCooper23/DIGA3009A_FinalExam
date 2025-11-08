@@ -1,106 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <link rel="stylesheet" href="../styling/root.css"> -->
-    <link rel="stylesheet" href="../styling/movies.css">
-    <!-- <script src="../js/movie.js"></script> -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movies | mediaboxd</title>
+  <link rel="stylesheet" href="../styling/root.css" />
+  <link rel="stylesheet" href="../styling/movies.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.1/ScrollTrigger.min.js"></script>
 </head>
 <body>
+  <header>
+    <h1 class="logo">mediaboxd</h1>
+    <form role="search">
+      <input type="text" id="searchInput" placeholder="Search..." />
+    </form>
+    <a id="headerUser" class="userTrigger" href="../pages/login.html">Log In</a>
+    <section id="userDropdown" class="dropdown">
+      <a href="../pages/profile.html">My Profile</a>
+      <a href="../pages/diary.html">My Diary</a>
+      <a href="../pages/myLists.html">My Lists</a>
+      <a href="#" id="logOut">Sign Out</a>
+    </section>
+  </header>
 
-    <header>
-       <h1 class="logo">
-        mediaboxd
-       </h1>
-       <form role="search">
-        <input type="text" id="searchInput" placeholder="Search...">
-       </form>
-       <a id="headerUser" class="userTrigger" href="../pages/login.html"> 
-        Log In
-       </a>
-       <section id="userDropdown" class="dropdown">
-        <a href="../pages/profile.html">My Profile</a>
-        <a href="../pages/diary.html">My Diary</a>
-        <a href="../pages/myLists.html">My Lists</a>
-        <a href="#" id="logOut"> Sign Out </a>
-       </section>
-    </header>
+  <aside id="navBarContainer"></aside>
 
-    <aside id="navBarContainer">
+  <main class="siteContainer">
+    <section class="filters">
+      <select id="yearFilters">
+        <option value="">YEAR</option>
+        <option value="2020s">2020s</option>
+        <option value="2010s">2010s</option>
+        <option value="2000s">2000s</option>
+        <option value="1990s">1990s</option>
+        <option value="1980s">1980s</option>
+      </select>
+      <select id="ratingFilters">
+        <option value="">RATING</option>
+        <option value="desc">Highest to Lowest</option>
+        <option value="asc">Lowest to Highest</option>
+      </select>
+      <select id="popularFilter">
+        <option value="">POPULAR</option>
+        <option value="week">This Week</option>
+        <option value="month">This Month</option>
+        <option value="year">This Year</option>
+        <option value="decade">This Decade</option>
+      </select>
+      <select id="genreFilters">
+        <option value="">GENRE</option>
+        <option value="28">Action</option>
+        <option value="16">Animation</option>
+        <option value="18">Drama</option>
+        <option value="27">Horror</option>
+        <option value="878">Sci-Fi</option>
+        <option value="53">Thriller</option>
+        <option value="37">Western</option>
+      </select>
+      <select id="platformFilters">
+        <option value="">PLATFORM</option>
+      </select>
+      <button id="resetFilters" class="resetButton">Reset</button>
+    </section>
 
-        
-    <main class="siteContainer">
-        <section class="filters">
-            <select id="yearFilters">
-                <option value="">YEAR</option>
-                <option value="2020s">2020s</option>
-                <option value="2010s">2010s</option>
-                <option value="2000s">2000s</option>
-                <option value="1990s">1990s</option>
-                <option value="1980s">1980s</option>
-            </select>
-            <select id="ratingFilters">
-                <option value="">RATING</option>
-                <option value="desc">Highest to Lowest</option>
-                <option value="asc">Lowest to Highest</option>
-            </select>
-            <select id="popularFilter">
-                <option value="">POPULAR</option>
-                <option value="week">This Week</option>
-                <option value="month">This Month</option>
-                <option value="year">This Year</option>
-                <option value="decade">This Decade</option>
-            </select>
-            <select id="genreFilters">
-                <option value="">GENRE</option>
-                <option value="28">Action</option>
-                <option value="16">Animation</option>
-                <option value="18">Drama</option>
-                <option value="27">Horror</option>
-                <option value="878">Sci-Fi</option>
-                <option value="53">Thriller</option>
-                <option value="37">Western</option>
-            </select>
-            <select id="platformFilters">
-                <option value="">PLATFORM</option>
-            </select>
+    <section>
+      <h2>Popular Films This Week</h2>
+      <ul id="popularList" class="filmList"></ul>
+    </section>
 
-            <button id="resetFilters" class="resetButton">Reset</button>
+    <section>
+      <h2>Growing Up Millennial</h2>
+      <ul id="millennialList" class="filmList"></ul>
+    </section>
 
-        </section>
-        <section>
-            <h2>
-                Popular Films This Week
-            </h2>
-        <ul id="popularList" class="filmList"></ul>
-        </section>
+    <section>
+      <h2>Top 10 SA Movies Today</h2>
+      <ul id="saList" class="filmList"></ul>
+    </section>
 
-        <section>
-            <h2>
-                Growing Up Millenial
-            </h2>
-        <ul id="millennialList" class="filmList"></ul>
-        </section>
-          
-        <section>
-            <h2>
-                Top 10 SA Movies Today
-            </h2>
-        <ul id="saList" class="filmList"></ul>
-        </section>
-        <section id="filterSection">
-            <h2>Filtered Results</h2>
-            <ul id="filteredList" class="filmList"></ul>
-        </section>
+    <section id="filterSection">
+      <h2>Filtered Results</h2>
+      <ul id="filteredList" class="filmList"></ul>
+    </section>
+  </main>
 
-    </main>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.1/ScrollTrigger.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" ></script>
-    <script defer src="../js/movie.js"></script>
-    <script defer src="../js/root.js"></script>
-
-
+  <script defer src="../js/root.js"></script>
+  <script defer src="../js/movie.js"></script>
 </body>
 </html>
