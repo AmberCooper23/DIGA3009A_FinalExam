@@ -1,4 +1,3 @@
-/* Reset & basics */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,16 +6,14 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: #a7c5d6; 
+  background: #a7c5d6;
   color: #111;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   min-height: 100vh;
 }
 
-/* Header */
 header {
   width: 100%;
   padding: 16px;
@@ -31,28 +28,28 @@ header {
   color: #111;
 }
 
-/* Container */
 .accountContainer {
   margin-top: 2rem;
   width: 100%;
   max-width: 400px;
-  background: #91b6cc; 
+  background: #91b6cc;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  min-height: 320px;
 }
 
-/* Tabs */
 .tabs {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 12px;
   margin-bottom: 1.5rem;
 }
 
 .tabs button {
   flex: 1;
   padding: 0.75rem 1rem;
-  border: 2px solid #465b68; 
+  border: 2px solid #4caf50;
   border-radius: 8px;
   background: #f0f0f0;
   color: #111;
@@ -63,18 +60,20 @@ header {
 }
 
 .tabs button:hover {
-  background: rgba(255,255,255,0.4);
+  background: #e0e0e0;
 }
 
 .tabs button.active {
-  background: #1c1c1c;
+  background: #4caf50;
   color: #fff;
+  border-color: #4caf50;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* Forms */
 .accountForm {
   display: flex;
   flex-direction: column;
+  animation: fadeIn 0.3s ease;
 }
 
 .accountForm h2 {
@@ -111,4 +110,9 @@ header {
 
 .accountForm button:hover {
   background: #43a047;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
