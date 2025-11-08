@@ -38,8 +38,7 @@ main {
   padding: 1rem;
 }
 
-/* Search container */
-.search-container {
+.searchContainer {
   position: relative;
   display: flex;
   align-items: center;
@@ -60,7 +59,7 @@ main {
   box-shadow: 0 0 5px rgba(52,152,219,0.4);
 }
 
-.search-container button {
+.searchContainer button {
   margin-left: 0.5rem;
   padding: 0.75rem 1.25rem;
   border: none;
@@ -71,7 +70,7 @@ main {
   cursor: pointer;
 }
 
-.search-container button:hover {
+.searchContainer button:hover {
   background: #2980b9;
 }
 
