@@ -37,8 +37,13 @@ signupForm.addEventListener("submit", (e) => {
 
   let users = getUsers();
 
+  // Check for duplicate username or email
   if (users.find(u => u.username === username)) {
     alert("Username already exists. Please choose another.");
+    return;
+  }
+  if (users.find(u => u.email === email)) {
+    alert("Email already registered. Please use another.");
     return;
   }
 
@@ -50,7 +55,6 @@ signupForm.addEventListener("submit", (e) => {
     username: username,
     to_email: email
   })
-  
   .then(() => {
     console.log("Confirmation email sent!");
     window.location.href = "../index.html";

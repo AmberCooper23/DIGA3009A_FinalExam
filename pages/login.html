@@ -1,47 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mediaboxd login</title>
-    <link rel="stylesheet" href="../styling/login.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mediaboxd login</title>
+  <link rel="stylesheet" href="../styling/login.css">
 </head>
 <body>
-    <header>
-        <h1 class="logo">
-            mediaboxd
-        </h1>
-    </header>
-    <main class="accountContainer">
-        <section class="tabs">
-            <button id="showLogin" type="button" class="active">Log In</button>
-            <button id="showSignup" type="button">Sign Up</button>
-        </section>
+  <header>
+    <h1 class="logo">mediaboxd</h1>
+  </header>
+  <main class="accountContainer">
+    <section class="tabs">
+      <button id="showLogin" type="button" class="active">Log In</button>
+      <button id="showSignup" type="button">Sign Up</button>
+    </section>
 
-        <form id="loginForm" class="accountForm">
-            <h2>
-                Log In
-            </h2>
-            <input id="loginUsername" type="text" id="username" placeholder="Username" required>
-            <input id="loginPassword" type="password" id="password" placeholder="Password" required>
-            <button type="submit">Log In</button>
-        </form>
+    <form id="loginForm" class="accountForm">
+      <h2>Log In</h2>
+      <input id="loginUsername" type="text" placeholder="Username" required>
+      <input id="loginPassword" type="password" placeholder="Password" required>
+      <button type="submit">Log In</button>
+    </form>
 
-        <form id="signupForm" class="accountForm" style="display: none;">
-            <h2>
-                Sign Up
-            </h2>
-            <input type="text" id="signupUsername" placeholder="Username" required>
-            <input type="password" id="signupPassword" placeholder="Password" required>
-            <input type="email" id="signupEmail" placeholder="Email" required>
-            <button type="submit">Create Account</button>
-        </form>
+    <form id="signupForm" class="accountForm" style="display: none;">
+      <h2>Sign Up</h2>
+      <input id="signupUsername" type="text" placeholder="Username" required>
+      <input id="signupPassword" type="password" placeholder="Password" required>
+      <input id="signupEmail" type="email" placeholder="Email" required>
+      <button type="submit">Create Account</button>
+    </form>
+  </main>
 
-    </main>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-  emailjs.init("qrfwEef1L_RplVdI_"); 
-</script>
-<script defer src="../js/login.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    emailjs.init("qrfwEef1L_RplVdI_"); 
+  </script>
+  <script defer src="../js/login.js"></script>
 </body>
 </html>
