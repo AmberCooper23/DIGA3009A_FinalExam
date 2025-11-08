@@ -2,6 +2,7 @@
 const navItems = [
   { label: "home", href: "../index.html" },
   { label: "movies", href: "../pages/movies.html" },
+  { label: "musicals", href: "../pages/musicals.html" },
   { label: "challenges", href: "../pages/challenges.html" },
   { label: "diary", href: "../pages/diary.html" }
 ];
@@ -50,23 +51,15 @@ function renderNavBar() {
 
 renderNavBar();
 
-// ===== GSAP Page Entrance + ScrollTrigger + MotionPath =====
+// ===== GSAP Page Entrance =====
 document.addEventListener("DOMContentLoaded", () => {
-  if (typeof gsap === "undefined") return;
-
-  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
-
   const intro = gsap.timeline({ defaults: { ease: "power3.out", duration: 1 } });
 
-  const header = document.querySelector("header");
-  const aside = document.querySelector("aside");
-  const filters = document.querySelector(".filters");
-  const firstH2 = document.querySelector("main section h2");
-
-  if (header) intro.from(header, { y: -80, opacity: 0 });
-  if (aside) intro.from(aside, { x: -100, opacity: 0 }, "-=0.6");
-  if (filters) intro.from(filters, { y: 40, opacity: 0 }, "-=0.4");
-  if (firstH2) intro.from(firstH2, { y: 40, opacity: 0 });
+  intro
+    .from("header", { y: -80, opacity: 0 })
+    .from("aside", { x: -100, opacity: 0 }, "-=0.6")
+    .from(".filters", { y: 40, opacity: 0 }, "-=0.4")
+    .from("main section:first-of-type h2", { y: 40, opacity: 0 });
 
   gsap.utils.toArray("main section").forEach((section, i) => {
     gsap.from(section, {
@@ -83,17 +76,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const logo = document.querySelector(".logo");
-  if (logo) {
-    gsap.to(logo, {
-      duration: 2,
-      ease: "power1.inOut",
-      motionPath: {
-        path: [{ x: 0, y: 0 }, { x: 100, y: -50 }, { x: 200, y: 0 }],
-        autoRotate: true
-      }
-    });
-  }
+  gsap.registerPlugin(MotionPathPlugin);
+  gsap.to(".logo", {
+    duration: 2,
+    ease: "power1.inOut",
+    motionPath: {
+      path: [{ x: 0, y: 0 }, { x: 100, y: -50 }, { x: 200, y: 0 }],
+      autoRotate: true
+    }
+  });
+  
 });
 
 // ===== Auth Logic =====
@@ -216,32 +208,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
-document.addEventListener("DOMContentLoaded", () => {
-  const navButtons = document.querySelectorAll(".navButton");
-
-  navButtons.forEach(btn => {
-    btn.addEventListener("mouseenter", () => {
-      gsap.to(btn, {
-        scale: 1.08,
-        backgroundColor: "#ffffff",
-        color: "#000",
-        boxShadow: "0 0 12px rgba(255,255,255,0.6)",
-        duration: 0.3,
-        ease: "power2.out"
-      });
-    });
-
-    btn.addEventListener("mouseleave", () => {
-      gsap.to(btn, {
-        scale: 1,
-        backgroundColor: "",
-        color: "",
-        boxShadow: "0 0 0 rgba(0,0,0,0)",
-        duration: 0.3,
-        ease: "power2.inOut"
-      });
-    });
-  });
-});
-
