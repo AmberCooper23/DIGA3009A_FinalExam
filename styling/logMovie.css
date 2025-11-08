@@ -1,20 +1,29 @@
-/* Reset */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: #f3f4f6;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  background: url('../styling/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: #1f2937;
+  position: relative;
 }
 
-/* Header */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: -1;
+}
+
 header {
-  background: #fff;
+  background: #111827;
+  color: #fff;
   padding: 1rem 2rem;
-  border-bottom: 1px solid #e5e7eb;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,13 +32,12 @@ header {
 header h1 {
   margin: 0;
   font-size: 1.5rem;
-  color: #0f172a;
 }
 
 header nav a {
-  margin-left: 1rem;
+  color: #93c5fd;
   text-decoration: none;
-  color: #2563eb;
+  margin-left: 1rem;
   font-weight: 600;
 }
 
@@ -37,27 +45,27 @@ header nav a:hover {
   text-decoration: underline;
 }
 
-/* Main layout */
 main {
-  max-width: 960px;
+  max-width: 1000px;
   margin: 2rem auto;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
   padding: 2rem;
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 280px 1fr;
   gap: 2rem;
 }
 
-/* Movie details */
 #movieDetails {
   text-align: center;
 }
 
 #movieDetails img {
   width: 100%;
+  height: auto;
   border-radius: 8px;
+  object-fit: cover;
   margin-bottom: 1rem;
 }
 
@@ -67,7 +75,6 @@ main {
   color: #111827;
 }
 
-/* Form styling */
 form {
   display: flex;
   flex-direction: column;
@@ -112,7 +119,6 @@ form button:hover {
   background: #1d4ed8;
 }
 
-/* Rating stars */
 .rating {
   display: flex;
   gap: 0.5rem;
@@ -124,15 +130,14 @@ form button:hover {
 .rating span {
   font-size: 2rem;
   cursor: pointer;
-  color: #ccc;
+  color: #d1d5db;
   transition: color 0.2s ease;
 }
 
-.rating span:hover {
-  color: gold;
+.rating span.active {
+  color: #facc15;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   main {
     grid-template-columns: 1fr;
