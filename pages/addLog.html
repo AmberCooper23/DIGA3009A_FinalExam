@@ -19,8 +19,11 @@
     <section>
       <h2>Search for a movie</h2>
       <form id="movieSearchForm">
+        <div class="searchContainer">
         <input type="text" id="movieSearchInput" autocomplete="off" required>
         <button type="submit">Search</button>
+        <ul id="suggestions"></ul>
+        </div>
       </form>
       <ul id="searchResults"></ul>
     </section>
