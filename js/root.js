@@ -5,6 +5,8 @@ const navItems = [
   { label: "Diary", href: "diary.html" }
 ];
 
+//merp
+
 function renderNavBar() {
   const container = document.getElementById("navBarContainer");
   if (!container) return;
